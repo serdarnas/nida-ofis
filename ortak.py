@@ -14,7 +14,33 @@ except ImportError:
     import msvcrt
 
 KOK = os.path.dirname(os.path.abspath(__file__))
-# Yapılandırma: ajanlar.example.json'ı ajanlar.json olarak kopyala (ajanlar.json .gitignore'da).
+
+
+def dotenv_yukle():
+    """Standart kütüphane ile .env dosyasını os.environ'a yükler (mevcut değişkenleri ezmez)."""
+    env_yolu = os.path.join(KOK, ".env")
+    if not os.path.isfile(env_yolu):
+        return
+    try:
+        with open(env_yolu, encoding="utf-8") as f:
+            for satir in f:
+                s = satir.strip()
+                if not s or s.startswith("#") or "=" not in s:
+                    continue
+                anahtar, _, deger = s.partition("=")
+                anahtar = anahtar.strip()
+                deger = deger.strip()
+                if len(deger) >= 2 and deger[0] == deger[-1] and deger[0] in ('"', "'"):
+                    deger = deger[1:-1]
+                if anahtar and anahtar not in os.environ:
+                    os.environ[anahtar] = deger
+    except OSError:
+        pass
+
+
+dotenv_yukle()
+
+# Yapılandırma: ajanlar.example.json'ı ajanlar.json olarak kopyala (ajanlar.json .gitignore'dadır).
 AJANLAR_DOSYASI = os.environ.get("OFIS_AJANLAR", os.path.join(KOK, "ajanlar.json"))
 AJANLAR_ORNEK = os.path.join(KOK, "ajanlar.example.json")
 OLAYLAR = os.path.join(KOK, "olaylar.jsonl")

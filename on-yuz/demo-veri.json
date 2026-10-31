@@ -1,5 +1,5 @@
 {
-  "_not": "Nida Zeytin (Olive Edremit Zeytincilik) Demo Verisi — ?demo=1 ile açılır.",
+  "_not": "Nida Zeytin (Olive Edremit Zeytincilik) Demo Verisi — EVREN LLM API Filosu — ?demo=1 ile açılır.",
   "ayarlar": {
     "kullanici": "Nida Zeytin",
     "marka": "Nida Zeytin Ofisi"
@@ -53,7 +53,7 @@
       "id": "ceo",
       "ad": "CEO (Nida Zeytin)",
       "oda": "ceo",
-      "model": "sonnet",
+      "model": "glm-5.3",
       "ne_zaman_metin": "Sen konuşunca",
       "aciklama": "Olive Edremit Zeytincilik yönetim merkezi; gelen hedefleri pazaryeri, ihracat, sosyal medya, SEO ve finans ajanlarına dağıtır.",
       "hazir_gorevler": [],
@@ -65,7 +65,7 @@
       "id": "pazaryeri-tr",
       "ad": "Trendyol & HB Uzmanı",
       "oda": "atolye",
-      "model": "sonnet",
+      "model": "deepseek-v4.1-flash",
       "ne_zaman_metin": "Kampanya & listeleme",
       "aciklama": "Trendyol ve Hepsiburada mağazaları için SEO uyumlu ürün başlıkları, kampanya kurgusu ve sepet büyütme paketleri hazırlar.",
       "hazir_gorevler": [
@@ -80,7 +80,7 @@
       "id": "pazaryeri-butik",
       "ad": "N11, Pazarama & PttAVM",
       "oda": "atolye",
-      "model": "sonnet",
+      "model": "deepseek-v4.1-flash",
       "ne_zaman_metin": "Fiyat & marj analizi",
       "aciklama": "N11 (olive-edremit), Pazarama, PttAVM ve PTT Akıllı Esnaf mağazaları için komisyon/kargo dahil kârlı fiyatlandırma matrisi çıkarır.",
       "hazir_gorevler": [
@@ -95,7 +95,7 @@
       "id": "global-ihracat",
       "ad": "Amazon, Ozon & Temu",
       "oda": "veri",
-      "model": "sonnet",
+      "model": "glm-5.3",
       "ne_zaman_metin": "Global listeleme & ihracat",
       "aciklama": "Amazon Seller Central, Ozon Global ve Temu için çok dilli (EN/RU/TR) listeleme, A+ Content ve sınır ötesi lojistik planı üretir.",
       "hazir_gorevler": [
@@ -110,7 +110,7 @@
       "id": "sosyal-medya",
       "ad": "Facebook & IG Küratörü",
       "oda": "sosyal",
-      "model": "sonnet",
+      "model": "mimo-v2.6-pro",
       "ne_zaman_metin": "Sosyal medya takvimi",
       "aciklama": "Nida Zeytin Facebook sayfası ve Instagram için görsel hikaye anlatımı, Reels senaryoları ve haftalık paylaşım takvimi hazırlar.",
       "hazir_gorevler": [
@@ -125,7 +125,7 @@
       "id": "linkedin-b2b",
       "ad": "LinkedIn & B2B Satış",
       "oda": "sosyal",
-      "model": "sonnet",
+      "model": "glm-5.3",
       "ne_zaman_metin": "Kurumsal & B2B içerik",
       "aciklama": "Olive Edremit Zeytincilik LinkedIn sayfası için kurumsal otorite yazıları, HORECA/toptan satış ve kurumsal hediye teklifleri üretir.",
       "hazir_gorevler": [
@@ -140,7 +140,7 @@
       "id": "reklam-ppc",
       "ad": "Reklam & PPC Uzmanı",
       "oda": "sosyal",
-      "model": "haiku",
+      "model": "qwen3.8-flash-next",
       "ne_zaman_metin": "Reklam & ROAS planı",
       "aciklama": "Meta Ads (Facebook/Instagram) ve pazaryeri sponsorlu ürün reklamları için hedef kitle, bütçe ve ROAS/ACOS optimizasyon planı çıkarır.",
       "hazir_gorevler": [
@@ -154,7 +154,7 @@
       "id": "web-seo",
       "ad": "Web & SEO (nidazeytin.com)",
       "oda": "yazi",
-      "model": "sonnet",
+      "model": "deepseek-v4.1-flash",
       "ne_zaman_metin": "SEO & içerik üretimi",
       "aciklama": "nidazeytin.com için anahtar kelime kümeleri, SEO uyumlu blog yazıları, kategori/ürün açıklamaları ve JSON-LD şemaları hazırlar.",
       "hazir_gorevler": [
@@ -169,7 +169,7 @@
       "id": "iletisim-destek",
       "ad": "Webmail & Müşteri Destek",
       "oda": "posta",
-      "model": "sonnet",
+      "model": "qwen3.8-flash-next",
       "ne_zaman_metin": "Yalnız 'mail' geçince",
       "aciklama": "info@nidazeytin.com ve olive@nidazeytin.com için kurumsal e-posta taslakları ve pazaryeri müşteri soru-cevap şablonları üretir.",
       "hazir_gorevler": [
@@ -185,7 +185,7 @@
       "id": "finans-kontrol",
       "ad": "Finans & Hakediş Kontrol",
       "oda": "bakim",
-      "model": "sonnet",
+      "model": "glm-5.3",
       "ne_zaman_metin": "Mutabakat & maliyet",
       "aciklama": "9 pazaryeri hakedişini, kargo/komisyon kesintilerini ve Garanti BBVA banka mutabakat kontrol listesini denetler.",
       "hazir_gorevler": [
@@ -199,7 +199,7 @@
       "id": "tedarik-stok",
       "ad": "Stok & Tedarik Uzmanı",
       "oda": "arastirma",
-      "model": "haiku",
+      "model": "qwen3.8-flash-next",
       "ne_zaman_metin": "Stok & ambalaj planı",
       "aciklama": "9 pazaryeri ve nidazeytin.com arasında stok senkronizasyonu, cam şişe/teneke ambalaj emniyet stoğu ve dolum planı çıkarır.",
       "hazir_gorevler": [

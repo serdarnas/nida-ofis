@@ -1385,7 +1385,16 @@ function terminalSenkron() {
   });
   ustGuncelle(); panelYenile();
 }
-const MODEL_ADI = { haiku:'Haiku 4.5', sonnet:'Sonnet 5.5', opus:'Opus 5.5', fable:'Fable 5.1' };
+const MODEL_ADI = {
+  'deepseek-v4.1-flash':'EVREN · DeepSeek v4.1 Flash',
+  'glm-5.3':'EVREN · GLM 5.3 FP8',
+  'mimo-v2.6-pro':'EVREN · MiMo v2.6 Pro (1M)',
+  'qwen3.8-flash-next':'EVREN · Qwen 3.8 Flash',
+  'gemma-4-31b':'EVREN · Gemma 4 31B',
+  'qwen3-vl-30b':'EVREN · Qwen3 VL 30B',
+  'auto':'EVREN · Auto Router',
+  haiku:'Haiku 4.5', sonnet:'Sonnet 5.5', opus:'Opus 5.5', fable:'Fable 5.1'
+};
 function modelAdi(m) {
   if (!m) return '';
   if (MODEL_ADI[m]) return MODEL_ADI[m];
