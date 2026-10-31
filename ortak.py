@@ -3,6 +3,7 @@ from contextlib import contextmanager
 import json
 import os
 import re
+import shutil
 import time
 from datetime import datetime, timezone
 
@@ -15,6 +16,7 @@ except ImportError:
 KOK = os.path.dirname(os.path.abspath(__file__))
 # Yapılandırma: ajanlar.example.json'ı ajanlar.json olarak kopyala (ajanlar.json .gitignore'da).
 AJANLAR_DOSYASI = os.environ.get("OFIS_AJANLAR", os.path.join(KOK, "ajanlar.json"))
+AJANLAR_ORNEK = os.path.join(KOK, "ajanlar.example.json")
 OLAYLAR = os.path.join(KOK, "olaylar.jsonl")
 DURUM_DIZINI = os.path.join(KOK, "durum")
 KOSU_DIZINI = os.path.join(KOK, "kosular")
@@ -41,6 +43,8 @@ class YapilandirmaHatasi(Exception):
 
 
 def ajanlari_yukle():
+    if not os.path.exists(AJANLAR_DOSYASI) and os.path.exists(AJANLAR_ORNEK):
+        shutil.copyfile(AJANLAR_ORNEK, AJANLAR_DOSYASI)
     try:
         with open(AJANLAR_DOSYASI, encoding="utf-8") as f:
             veri = json.load(f)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ajan Ofisi v2 arka ucu. Yalnız stdlib. Yalnız 127.0.0.1.
+"""Ajan Ofisi v2 arka ucu. Yalnız stdlib.
 
 python3 sunucu.py            # 8796, doluysa sonraki boş port
 """
@@ -21,12 +21,13 @@ import ortak  # noqa: E402
 import kopru  # noqa: E402
 import token_sayac  # noqa: E402
 
-HOST = "127.0.0.1"
-ILK_PORT = int(os.environ.get("OFIS_PORT", "8796"))
+HOST = os.environ.get("OFIS_HOST", "127.0.0.1")
+ILK_PORT = int(os.environ.get("OFIS_PORT") or os.environ.get("PORT") or "8796")
 TMUX_OTURUM = "ofis"
 ON_YUZ = os.path.join(ortak.KOK, "on-yuz")
 IZINLI_ORIGIN = re.compile(r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$")
 IZINLI_HOST = re.compile(r"^(localhost|127\.0\.0\.1)(:\d+)?$")
+EK_HOSTLAR = {h.strip().lower() for h in (os.environ.get("OFIS_IZINLI_HOST") or "").split(",") if h.strip()}
 MAKS_GOVDE = 16_000
 MAKS_ATAMA = 5
 CEO_ZAMAN_ASIMI = 240
@@ -51,6 +52,29 @@ class IstekHatasi(Exception):
     def __init__(self, kod, mesaj):
         super().__init__(mesaj)
         self.kod = kod
+
+
+def _host_izinli(host):
+    if not host:
+        return False
+    if "*" in EK_HOSTLAR or HOST == "0.0.0.0":
+        return True
+    temiz = host.split(":", 1)[0].strip().lower()
+    return bool(IZINLI_HOST.match(host)) or temiz in EK_HOSTLAR
+
+
+def _origin_izinli(origin):
+    if not origin:
+        return True
+    if "*" in EK_HOSTLAR or HOST == "0.0.0.0":
+        return True
+    if IZINLI_ORIGIN.match(origin):
+        return True
+    try:
+        h = (urlparse(origin).hostname or "").lower()
+        return h in EK_HOSTLAR
+    except ValueError:
+        return False
 
 
 # ---------- koşu başlatma ----------
@@ -312,18 +336,18 @@ class Isleyici(SimpleHTTPRequestHandler):
 
     def _guvenlik(self):
         host = self.headers.get("Host", "")
-        if not IZINLI_HOST.match(host):
+        if not _host_izinli(host):
             self._json(403, {"hata": "host reddedildi"})
             return False
         origin = self.headers.get("Origin")
-        if origin and not IZINLI_ORIGIN.match(origin):
+        if not _origin_izinli(origin):
             self._json(403, {"hata": "origin reddedildi"})
             return False
         return True
 
     def _cors(self):
         origin = self.headers.get("Origin")
-        if origin and IZINLI_ORIGIN.match(origin):
+        if origin and _origin_izinli(origin):
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Vary", "Origin")
 
