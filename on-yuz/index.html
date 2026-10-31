@@ -1466,32 +1466,31 @@ function tost(metin) { const t = $('tost'); t.textContent = metin; t.classList.a
 
 /* ---------- demo motoru (arka uca istek yok, maliyet sıfır) ---------- */
 const DEMO_ADIM = {
-  'gun-sonu':[['Read','file_path=notlar/gunluk.md'],['Grep','pattern=^## bugün'],['Read','file_path=hafiza/gun-sonu.md']],
-  'tasarimci':[['Read','file_path=brief/kapak.md'],['Glob','pattern=gorseller/*.png'],['Write','file_path=cikti/kapak-fikirleri.md']],
-  'veri':[['Read','file_path=depo/linkler.jsonl'],['Read','file_path=depo/kaynaklar.jsonl'],['Grep','pattern=etiket:'],['Write','file_path=rapor/sabah.md']],
-  'blog-yazari':[['Read','file_path=notlar/proje.md'],['Read','file_path=taslaklar/onceki-yazi.md'],['Write','file_path=taslaklar/yeni-yazi.md']],
-  'editor':[['Read','file_path=taslaklar/yeni-yazi.md'],['Grep','pattern=TODO'],['Write','file_path=duzeltmeler.md']],
-  'kod-inceleyici':[['Bash','command=git diff'],['Read','file_path=src/api/routes.ts'],['Task','description=güvenlik taraması',600],['Task','description=tip kontrolü',600],['Task','description=test kapsamı',600],['Grep','pattern=TODO',5200],['Write','file_path=inceleme.md']],
-  'test-yazari':[['Read','file_path=src/utils/format.ts'],['Glob','pattern=tests/**/*.test.ts'],['Write','file_path=tests/format.test.ts']],
-  'sosyal-yazar':[['Read','file_path=notlar/haftalik.md'],['Write','file_path=taslak/post.md']],
-  'arastirmaci':[['WebSearch','query=claude code hooks'],['WebFetch','url=https://docs.claude.com'],['Write','file_path=notlar/arastirma.md']],
-  'gelistirici':[['Bash','command=git status'],['Read','file_path=README.md'],['Write','file_path=plan.md']],
-  'temizlikci':[['Bash','command=du -sh ~/Downloads'],['Glob','pattern=**/*.mov'],['Write','file_path=temizlik-plani.md']],
-  'bekci':[['Glob','pattern=~/Downloads/*'],['Bash','command=spctl --assess'],['Write','file_path=bekci-raporu.md']],
-  'posta':[['Read','file_path=gelen-kutusu.json'],['Write','file_path=taslak-cevaplar.md']],
+  'pazaryeri-tr':[['Read','file_path=marka-profili.md'],['Read','file_path=departmanlar/pazaryeri-tr/CLAUDE.md'],['Write','file_path=cikti/trendyol-kampanya.md']],
+  'pazaryeri-butik':[['Read','file_path=marka-profili.md'],['Grep','pattern=N11|Pazarama|PttAVM'],['Write','file_path=cikti/fiyat-matrisi.md']],
+  'global-ihracat':[['Read','file_path=departmanlar/global-ihracat/CLAUDE.md'],['WebSearch','query=Amazon Extra Virgin Olive Oil A+ Content'],['Write','file_path=cikti/amazon-ozon-listing.md']],
+  'sosyal-medya':[['Read','file_path=departmanlar/sosyal-medya/CLAUDE.md'],['Write','file_path=cikti/facebook-ig-takvim.md']],
+  'linkedin-b2b':[['Read','file_path=departmanlar/linkedin-b2b/CLAUDE.md'],['Write','file_path=cikti/linkedin-horeca-post.md']],
+  'reklam-ppc':[['Read','file_path=departmanlar/reklam-ppc/CLAUDE.md'],['Write','file_path=cikti/meta-ads-roas.md']],
+  'web-seo':[['Read','file_path=departmanlar/web-seo/CLAUDE.md'],['WebFetch','url=https://www.nidazeytin.com'],['Write','file_path=cikti/nidazeytin-seo-plani.md']],
+  'iletisim-destek':[['Read','file_path=departmanlar/iletisim-destek/CLAUDE.md'],['Write','file_path=cikti/kurumsal-mail-taslak.md']],
+  'finans-kontrol':[['Read','file_path=departmanlar/finans-kontrol/CLAUDE.md'],['Write','file_path=cikti/garanti-hakedis-mutabakat.md']],
+  'tedarik-stok':[['Read','file_path=departmanlar/tedarik-stok/CLAUDE.md'],['Write','file_path=cikti/9-pazaryeri-stok-plani.md']],
 };
 const DEMO_OZET = {
-  'gun-sonu':'Bugün 3 iş bitti: blog taslağı, kod incelemesi, sabah raporu. Yarına 1 açık madde.',
-  'tasarimci':'Kapak için 3 fikir: renk paleti, başlık yerleşimi, ikon önerisi.',
-  'veri':'Sabah analizi: 9 link ayıklandı, 2’si blog konusu olarak Yazı Odası’na önerildi.',
-  'blog-yazari':'Yeni yazı taslağı hazır: 3 bölüm, sonunda kaynak listesi. Yayınlanmadı.',
-  'kod-inceleyici':'2 risk bulundu: doğrulanmamış girdi, eksik hata yakalama. Dosyaya yazılmadı.',
-  'sosyal-yazar':'Haftanın postu taslağı: iki varyasyon, paylaşılmadı.',
-  'arastirmaci':'3 kaynaklı kısa not: hooks ile koşu olayları.',
+  'pazaryeri-tr':'Trendyol & Hepsiburada için 5L Erken Hasat Teneke + 1Kg Edremit Çizik Zeytin Tanışma Paketi ve kupon kurgusu hazırlandı.',
+  'pazaryeri-butik':'N11 (olive-edremit), Pazarama, PttAVM ve Akıllı Esnaf için PTT kargo baremi ve komisyon dahil net marj tablosu çıkarıldı.',
+  'global-ihracat':'Amazon, Ozon ve Temu için İngilizce/Rusça "Mount Ida & Edremit Bay Cold Pressed Extra Virgin Olive Oil" A+ listeleme metni üretildi.',
+  'sosyal-medya':'Nida Zeytin Facebook & Instagram sayfası için 7 günlük post takvimi ve 3 soğuk sıkım Reels senaryosu hazırlandı.',
+  'linkedin-b2b':'Olive Edremit Zeytincilik LinkedIn sayfası için 3 kancalı (Hook) kurumsal gönderi ve HORECA toptan teklif mesajı yazıldı.',
+  'reklam-ppc':'Meta Ads ve pazaryeri sponsorlu ürün reklamları için Tanışma Paketi odaklı ROAS/ACOS huni planı oluşturuldu.',
+  'web-seo':'nidazeytin.com kategori/ürün anahtar kelime küme haritası, Product JSON-LD şeması ve blog taslağı tamamlandı.',
+  'iletisim-destek':'info@nidazeytin.com ve olive@nidazeytin.com için kurumsal B2B teklif mail taslağı ve pazaryeri soru-cevap şablonları hazırlandı.',
+  'finans-kontrol':'Garanti BBVA (TR26...3031) hakediş mutabakat tablosu ve pazaryeri komisyon/kargo kesinti denetim listesi çıkarıldı.',
+  'tedarik-stok':'Edremit hasadı dolum planı, cam şişe/teneke emniyet stoğu ve 9 pazaryeri stok dağıtım kuralları oluşturuldu.',
 };
 const demo = (() => {
   const zamanla = (ms, f) => setTimeout(f, ms);
-  // demo token: yalnız çalışırken artar (her adım bir model turu), uyurken sabit; arka uca istek yok
   const demoGun = new Map();
   const tokenEkle = (ajanId, kaynak, girdi, cikti, yazma, okuma) => {
     const g = demoGun.get(ajanId) || { ofis:{}, terminal:{} };
@@ -1507,22 +1506,29 @@ const demo = (() => {
     const kosu_id = 'demo-' + Date.now() + '-' + ajanId; const oda = a.oda; const bas = Date.now();
     const yay = (tur, ek = {}) => olayIsle({ zaman:new Date().toISOString(), tur, kosu_id, ajan:ajanId, oda, ...ek });
     yay('kosu_basladi', { etiket, kaynak });
-    const adimlar = DEMO_ADIM[ajanId] || [['Read', 'file_path=README.md']];
+    const adimlar = DEMO_ADIM[ajanId] || [['Read', 'file_path=marka-profili.md']];
     let t = 900;
     zamanla(500, () => turToken(ajanId));
     adimlar.forEach(([arac, detay, ara]) => { zamanla(t, () => { yay('ilerledi', { arac, detay }); turToken(ajanId); }); t += ara ?? 1700 + Math.random() * 1500; });
     zamanla(t + 600, () => {
-      const hafiza = Math.random() < .35 ? ['Kısa madde tercih ediliyor; en fazla 3 satır.'] : [];
+      const hafiza = Math.random() < .35 ? ['Edremit Körfezi menşei ve soğuk sıkım analizi her ürün kartında vurgulanmalı.'] : [];
       yay('kosu_bitti', { durum:'basarili', sure_sn:(Date.now() - bas) / 1000, ozet:DEMO_OZET[ajanId] || etiket + ' tamamlandı.', maliyet_usd:0, hafiza_eklendi:hafiza });
       sayac = { ...sayac, bugun_kosu:(sayac.bugun_kosu || 0) + 1 };
     });
     return true;
   };
-  const YOL = [[/mail|posta|gelen kutusu/i,'posta'],[/tasarım|kapak|görsel|logo/i,'tasarimci'],[/kod|incele|review|bug/i,'kod-inceleyici'],
-    [/test/i,'test-yazari'],[/tweet|post|sosyal|linkedin/i,'sosyal-yazar'],[/prototip|demo|site|araç yap/i,'gelistirici'],[/disk|yer aç|temizle/i,'temizlikci'],
-    [/güvenlik|indir|port/i,'bekci'],[/blog|yazı|taslak/i,'blog-yazari'],[/düzelt|editör|redakte/i,'editor'],[/özet|gün sonu|bugün/i,'gun-sonu'],
-    [/link|sabah/i,'veri'],[/araştır|kaynak|bul/i,'arastirmaci']];
-  // tetik_kelime'li ajan (ör. posta) yalnız istekte o kelime geçince seçilir — sunucudaki kuralın aynısı
+  const YOL = [
+    [/mail|posta|eposta|webmail|soru|iade/i,'iletisim-destek'],
+    [/trendyol|hepsiburada|hb|buybox/i,'pazaryeri-tr'],
+    [/n11|pazarama|ptt|akıllı esnaf|fiyat|komisyon/i,'pazaryeri-butik'],
+    [/amazon|ozon|temu|ihracat|yurt dışı|global/i,'global-ihracat'],
+    [/facebook|instagram|reels|post|sosyal/i,'sosyal-medya'],
+    [/linkedin|b2b|toptan|horeca|kurumsal/i,'linkedin-b2b'],
+    [/reklam|ppc|roas|acos|meta ads/i,'reklam-ppc'],
+    [/seo|site|nidazeytin|blog|google/i,'web-seo'],
+    [/finans|banka|garanti|hakediş|muhasebe|maliyet/i,'finans-kontrol'],
+    [/stok|tedarik|teneke|şişe|hasat|kargo/i,'tedarik-stok']
+  ];
   const tetikUygun = (id, metin) => { const k = ajanBul(id)?.tetik_kelime; return !k || metin.toLocaleLowerCase('tr-TR').includes(String(k).toLocaleLowerCase('tr-TR')); };
   return {
     gorev(ajanId, govde) {
@@ -1535,35 +1541,34 @@ const demo = (() => {
     ceo(metin) {
       const kosu_id = 'demo-ceo-' + Date.now();
       olayIsle({ zaman:new Date().toISOString(), tur:'ceo_basladi', kosu_id, ajan:'ceo', oda:'ceo' });
-      return new Promise(coz => zamanla(4200, () => {
-        const hedefler = [...new Set(YOL.filter(([re]) => re.test(metin)).map(([, id]) => id))].filter(id => ajanBul(id) && tetikUygun(id, metin)).slice(0, 2);
-        const secilen = hedefler.length ? hedefler : ['arastirmaci'].filter(id => ajanBul(id));
+      return new Promise(coz => zamanla(3200, () => {
+        const hedefler = [...new Set(YOL.filter(([re]) => re.test(metin)).map(([, id]) => id))].filter(id => ajanBul(id) && tetikUygun(id, metin)).slice(0, 3);
+        const secilen = hedefler.length ? hedefler : ['pazaryeri-tr', 'web-seo'].filter(id => ajanBul(id));
         const adlar = secilen.map(id => ajanBul(id)?.ad).join(' ve ');
-        olayIsle({ zaman:new Date().toISOString(), tur:'ceo_bitti', kosu_id, ajan:'ceo', oda:'ceo', durum:'basarili', sure_sn:4.2,
-          cevap:adlar + ' bu işi alıyor. Bitince çıktıyı “CEO soruyor” kısmına koyarım, onayını beklerim.',
+        olayIsle({ zaman:new Date().toISOString(), tur:'ceo_bitti', kosu_id, ajan:'ceo', oda:'ceo', durum:'basarili', sure_sn:3.2,
+          cevap:adlar + ' Nida Zeytin için bu görevi devraldı. Tamamlanınca çıktıyı “CEO soruyor” kartına düşüreceğim.',
           baslatilan:secilen.map(id => ({ ajan:id })), reddedilen:[] });
-        secilen.forEach((id, i) => zamanla(2200 + i * 450, () => kosu(id, kisa(metin, 60), 'ceo')));
+        secilen.forEach((id, i) => zamanla(1800 + i * 450, () => kosu(id, kisa(metin, 60), 'ceo')));
         coz();
       }));
     },
     basla() {
       const once = (dk, tur, ek) => olayIsle({ zaman:new Date(Date.now() - dk * 60000).toISOString(), tur, ...ek });
-      once(185, 'kosu_basladi', { kosu_id:'d-1', ajan:'veri', oda:'veri', etiket:'Sabah analizi' });
-      once(183, 'kosu_bitti', { kosu_id:'d-1', ajan:'veri', oda:'veri', durum:'basarili', sure_sn:96, ozet:'Sabah analizi: 9 link ayıklandı; 2’si blog konusu olabilir. Talimat içeren 1 metin veri olarak işaretlendi.', hafiza_eklendi:[] });
-      once(42, 'kosu_basladi', { kosu_id:'d-2', ajan:'sosyal-yazar', oda:'sosyal', etiket:'Haftanın postu' });
-      once(41, 'kosu_bitti', { kosu_id:'d-2', ajan:'sosyal-yazar', oda:'sosyal', durum:'basarili', sure_sn:51, ozet:'Haftanın postu taslağı hazır: “Ofisim boştayken 0 token harcıyor.” İki varyasyon, paylaşılmadı.', hafiza_eklendi:['Postlarda emoji yok, ilk cümle kanca.'] });
-      tokenEkle('veri', 'ofis', 41, 2310, 28400, 96200);
-      tokenEkle('sosyal-yazar', 'ofis', 22, 1180, 14900, 51300);
-      tokenEkle('blog-yazari', 'terminal', 380, 21400, 96500, 3412000);
+      once(120, 'kosu_basladi', { kosu_id:'d-1', ajan:'pazaryeri-tr', oda:'atolye', etiket:'Trendyol & HB Kampanya Planı' });
+      once(118, 'kosu_bitti', { kosu_id:'d-1', ajan:'pazaryeri-tr', oda:'atolye', durum:'basarili', sure_sn:84, ozet:DEMO_OZET['pazaryeri-tr'], hafiza_eklendi:[] });
+      once(45, 'kosu_basladi', { kosu_id:'d-2', ajan:'linkedin-b2b', oda:'sosyal', etiket:'LinkedIn Kurumsal Post (3 Hook)' });
+      once(44, 'kosu_bitti', { kosu_id:'d-2', ajan:'linkedin-b2b', oda:'sosyal', durum:'basarili', sure_sn:52, ozet:DEMO_OZET['linkedin-b2b'], hafiza_eklendi:['Her LinkedIn postunda 3 Hook alternatifi sunulur.'] });
+      tokenEkle('pazaryeri-tr', 'ofis', 41, 2310, 28400, 96200);
+      tokenEkle('linkedin-b2b', 'ofis', 22, 1180, 14900, 51300);
+      tokenEkle('web-seo', 'terminal', 380, 21400, 96500, 341200);
       sayac = { bugun_kosu:2, aktif_ajan:0, toplam_maliyet_usd:0, kosular:[
-        { kosu_id:'d-1', ajan:'veri', durum:'basarili', sure_sn:96, maliyet_usd:0, kullanim:null },
-        { kosu_id:'d-2', ajan:'sosyal-yazar', durum:'basarili', sure_sn:51, maliyet_usd:0, kullanim:null }] };
+        { kosu_id:'d-1', ajan:'pazaryeri-tr', durum:'basarili', sure_sn:84, maliyet_usd:0, kullanim:null },
+        { kosu_id:'d-2', ajan:'linkedin-b2b', durum:'basarili', sure_sn:52, maliyet_usd:0, kullanim:null }] };
       if (!OTO) return;
-      zamanla(300, () => kosu('tasarimci', 'Kapak fikirleri'));
-      zamanla(900, () => kosu('gun-sonu', 'Bugünün 3 maddesi'));
-      zamanla(1600, () => kosu('blog-yazari', 'Taslak yaz'));
-      zamanla(2400, () => kosu('bekci', 'İndirilenleri denetle'));
-      zamanla(1200, () => kosu('kod-inceleyici', 'Son değişiklikleri incele'));
+      zamanla(400, () => kosu('global-ihracat', 'Amazon İngilizce A+ Listeleme'));
+      zamanla(1100, () => kosu('pazaryeri-butik', 'Çoklu Mağaza Fiyat Matrisi'));
+      zamanla(1800, () => kosu('sosyal-medya', 'Haftalık Facebook & IG Takvimi'));
+      zamanla(2500, () => kosu('web-seo', 'nidazeytin.com SEO Eylem Planı'));
       setInterval(() => {
         const uyuyan = AJANLAR.filter(a => a.durum === 'uyku' && a.id !== 'ceo' && !a.tetik_kelime);
         if (calisanlar().length >= 4 || !uyuyan.length) return;

@@ -56,7 +56,9 @@ class IstekHatasi(Exception):
 # ---------- koşu başlatma ----------
 
 def tmux_hazirla():
-    tmux = shutil.which("tmux") or "/opt/homebrew/bin/tmux"
+    tmux = shutil.which("tmux") or ("/opt/homebrew/bin/tmux" if os.path.exists("/opt/homebrew/bin/tmux") else None)
+    if not tmux:
+        return None
     var = subprocess.run([tmux, "has-session", "-t", f"={TMUX_OTURUM}"], capture_output=True)
     if var.returncode != 0:
         subprocess.run([tmux, "new-session", "-d", "-s", TMUX_OTURUM, "-n", "lobi"], check=True)
@@ -92,14 +94,20 @@ def gorev_baslat(ajan_id, etiket=None, prompt=None, kaynak="buton"):
                                   "baslangic_ts": time.time()})
         try:
             tmux = tmux_hazirla()
-            subprocess.run([tmux, "new-window", "-d", "-t", f"={TMUX_OTURUM}:", "-n", ajan_id,
-                            "-c", ajan["cwd"], sys.executable,
-                            os.path.join(ortak.KOK, "kosucu.py"), arg_yolu],
-                           check=True, capture_output=True)
+            kosucu_yolu = os.path.join(ortak.KOK, "kosucu.py")
+            if tmux:
+                subprocess.run([tmux, "new-window", "-d", "-t", f"={TMUX_OTURUM}:", "-n", ajan_id,
+                                "-c", ajan["cwd"], sys.executable, kosucu_yolu, arg_yolu],
+                               check=True, capture_output=True)
+            else:
+                env = {**os.environ, "OFIS_PENCERE_BEKLE": "0"}
+                flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+                subprocess.Popen([sys.executable, kosucu_yolu, arg_yolu],
+                                 cwd=ajan["cwd"], env=env, creationflags=flags)
         except (subprocess.CalledProcessError, OSError) as e:
-            ortak.durum_yaz(ajan_id, {"durum": "hata", "kosu_id": kosu_id, "hata": "tmux açılamadı"})
+            ortak.durum_yaz(ajan_id, {"durum": "hata", "kosu_id": kosu_id, "hata": "koşu süreci açılamadı"})
             ortak.olay_yaz({"tur": "hata", "ajan": ajan_id, "kosu_id": kosu_id,
-                            "detay": f"tmux: {type(e).__name__}"})
+                            "detay": f"baslatma: {type(e).__name__}"})
             raise IstekHatasi(500, "koşu başlatılamadı") from e
     return {"kosu_id": kosu_id, "ajan": ajan_id, "tmux": f"{TMUX_OTURUM}:{ajan_id}"}
 
@@ -184,11 +192,11 @@ def ceo_calistir(metin, kuru=False):
             f.write(surec.stdout + ("\n--- stderr ---\n" + surec.stderr if surec.stderr else ""))
         sonuc = json.loads(surec.stdout)
         cevap, gecerli, reddedilen = ceo_dogrula(json_ayikla(sonuc), tablo, metin)
-    except (subprocess.TimeoutExpired, json.JSONDecodeError, ValueError) as e:
+    except (subprocess.TimeoutExpired, json.JSONDecodeError, ValueError, OSError) as e:
         ortak.olay_yaz({"tur": "ceo_bitti", "kosu_id": ceo_id, "ajan": "ceo", "oda": "ceo",
                         "durum": "hata", "hata": f"{type(e).__name__}: {str(e)[:200]}",
                         "sure_sn": round(time.time() - baslangic, 1)})
-        raise IstekHatasi(502, "CEO geçerli bir plan döndürmedi; koşu başlatılmadı") from e
+        raise IstekHatasi(502, "CEO geçerli bir plan döndürmedi (claude CLI kurulu mu?); koşu başlatılmadı") from e
 
     baslatilan = []
     for a in ([] if kuru else gecerli):

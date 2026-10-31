@@ -1,10 +1,16 @@
 """Ajan Ofisi ortak yardımcıları: yollar, ajan tablosu, olay günlüğü, durum dosyaları."""
-import fcntl
+from contextlib import contextmanager
 import json
 import os
 import re
 import time
 from datetime import datetime, timezone
+
+try:
+    import fcntl
+except ImportError:
+    fcntl = None
+    import msvcrt
 
 KOK = os.path.dirname(os.path.abspath(__file__))
 # Yapılandırma: ajanlar.example.json'ı ajanlar.json olarak kopyala (ajanlar.json .gitignore'da).
@@ -61,16 +67,36 @@ def ayarlar(veri):
     return {"kullanici": str(a.get("kullanici") or "")[:40], "marka": str(a.get("marka") or "Ajan Ofisi")[:40]}
 
 
+@contextmanager
+def dosya_kilidi(f):
+    """Platform bağımsız dosya kilidi (Unix fcntl / Windows msvcrt)."""
+    if fcntl is not None:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(f, fcntl.LOCK_UN)
+    else:
+        try:
+            msvcrt.locking(f.fileno(), msvcrt.LK_LOCK, 1)
+        except OSError:
+            pass
+        try:
+            yield
+        finally:
+            try:
+                msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+            except OSError:
+                pass
+
+
 def olay_yaz(olay):
     """olaylar.jsonl'e tek satır ekler (süreçler arası kilitli)."""
     satir = json.dumps({"zaman": simdi_iso(), **olay}, ensure_ascii=False)
     with open(OLAYLAR, "a", encoding="utf-8") as f:
-        fcntl.flock(f, fcntl.LOCK_EX)
-        try:
+        with dosya_kilidi(f):
             f.write(satir + "\n")
             f.flush()
-        finally:
-            fcntl.flock(f, fcntl.LOCK_UN)
 
 
 def durum_yolu(ajan_id):
@@ -98,7 +124,7 @@ def surec_yasiyor(pid):
     try:
         os.kill(int(pid), 0)
         return True
-    except (ProcessLookupError, ValueError):
+    except (ProcessLookupError, ValueError, OSError):
         return False
     except PermissionError:
         return True
