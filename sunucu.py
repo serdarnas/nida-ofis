@@ -361,6 +361,39 @@ def hafiza_yaniti():
     return {"hafiza": dosyalar}
 
 
+def dosyalar_yaniti():
+    """docs/ klasöründeki dosyaların listesi (ad, boyut, tarih, uzantı, indir linki)."""
+    docs_dizini = os.path.join(ortak.KOK, "docs")
+    os.makedirs(docs_dizini, exist_ok=True)
+    sonuc = []
+    for ad in sorted(os.listdir(docs_dizini)):
+        tam_yol = os.path.join(docs_dizini, ad)
+        if not os.path.isfile(tam_yol):
+            continue
+        try:
+            st = os.stat(tam_yol)
+            boyut = st.st_size
+            if boyut < 1024:
+                boyut_str = f"{boyut} B"
+            elif boyut < 1024 * 1024:
+                boyut_str = f"{boyut / 1024:.1f} KB"
+            else:
+                boyut_str = f"{boyut / (1024 * 1024):.1f} MB"
+            uzanti = os.path.splitext(ad)[1].lower()
+            tarih = datetime.fromtimestamp(st.st_mtime).strftime("%d.%m.%Y %H:%M")
+            sonuc.append({
+                "ad": ad,
+                "boyut": boyut,
+                "boyut_metin": boyut_str,
+                "uzanti": uzanti,
+                "tarih": tarih,
+                "indir_url": f"/api/dosya-indir?ad={ad}"
+            })
+        except OSError:
+            continue
+    return {"dosyalar": sonuc}
+
+
 # ---------- HTTP ----------
 
 class Isleyici(SimpleHTTPRequestHandler):
@@ -440,6 +473,41 @@ class Isleyici(SimpleHTTPRequestHandler):
             return self._json(200, {"terminaller": KOPRU.liste()})
         if yol.path in ("/api/senkronize", "/api/veri-senkronize"):
             return self._json(200, veri_senkron.senkronize_et())
+        if yol.path == "/api/dosyalar":
+            return self._json(200, dosyalar_yaniti())
+        if yol.path == "/api/dosya-indir":
+            qs = parse_qs(yol.query)
+            ad = (qs.get("ad") or [""])[0]
+            from urllib.parse import unquote, quote
+            temiz_ad = os.path.basename(unquote(ad))
+            if not temiz_ad:
+                return self._json(400, {"hata": "dosya adı gerekli"})
+            dosya_yolu = os.path.join(ortak.KOK, "docs", temiz_ad)
+            if not os.path.isfile(dosya_yolu):
+                return self._json(404, {"hata": "dosya bulunamadı"})
+            uzanti = os.path.splitext(temiz_ad)[1].lower()
+            mime = "application/octet-stream"
+            if uzanti == ".xlsx":
+                mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            elif uzanti == ".csv":
+                mime = "text/csv; charset=utf-8"
+            elif uzanti in (".png", ".jpg", ".jpeg"):
+                mime = f"image/{uzanti.lstrip('.')}"
+            elif uzanti == ".pdf":
+                mime = "application/pdf"
+            elif uzanti in (".txt", ".md", ".json"):
+                mime = "text/plain; charset=utf-8"
+            boyut = os.path.getsize(dosya_yolu)
+            self.send_response(200)
+            self.send_header("Content-Type", mime)
+            self.send_header("Content-Length", str(boyut))
+            safe_fname = quote(temiz_ad)
+            self.send_header("Content-Disposition", f'attachment; filename="{temiz_ad}"; filename*=UTF-8\'\'{safe_fname}')
+            self._cors()
+            self.end_headers()
+            with open(dosya_yolu, "rb") as f:
+                shutil.copyfileobj(f, self.wfile)
+            return
         if yol.path == "/api/olaylar":
             return self._sse(parse_qs(yol.query))
         if yol.path.startswith("/api/"):
@@ -449,9 +517,70 @@ class Isleyici(SimpleHTTPRequestHandler):
     def do_POST(self):
         if not self._guvenlik():
             return
-        yol = urlparse(self.path).path
+        yol_obj = urlparse(self.path)
+        yol = yol_obj.path
+
+        if yol == "/api/dosya-yukle":
+            qs = parse_qs(yol_obj.query)
+            ad = (qs.get("ad") or [""])[0] or self.headers.get("X-File-Name") or "yuklenen_dosya.xlsx"
+            from urllib.parse import unquote
+            temiz_ad = os.path.basename(unquote(ad)).replace("/", "_").replace("\\", "_")
+            if not temiz_ad:
+                return self._json(400, {"hata": "geçersiz dosya adı"})
+            uzunluk = int(self.headers.get("Content-Length") or 0)
+            if uzunluk <= 0:
+                return self._json(400, {"hata": "dosya boş"})
+            if uzunluk > 50 * 1024 * 1024:
+                return self._json(413, {"hata": "dosya 50 MB sınırını aşıyor"})
+
+            docs_dizini = os.path.join(ortak.KOK, "docs")
+            os.makedirs(docs_dizini, exist_ok=True)
+            hedef = os.path.join(docs_dizini, temiz_ad)
+            kalan = uzunluk
+            with open(hedef, "wb") as f:
+                while kalan > 0:
+                    parca = self.rfile.read(min(kalan, 65536))
+                    if not parca:
+                        break
+                    f.write(parca)
+                    kalan -= len(parca)
+
+            seo_durum = None
+            if temiz_ad.endswith((".xlsx", ".csv")):
+                try:
+                    import seo_guncelleyici
+                    seo_durum = f"{seo_guncelleyici.excel_seo_guncelle()} ürünün SEO metinleri güncellendi"
+                    veri_senkron.senkronize_et()
+                except Exception as e:
+                    seo_durum = f"SEO güncelleme: {e}"
+
+            return self._json(200, {
+                "durum": "basarili",
+                "dosya": temiz_ad,
+                "boyut": uzunluk,
+                "seo": seo_durum
+            })
+
+        if yol == "/api/seo-guncelle":
+            try:
+                import seo_guncelleyici
+                adet = seo_guncelleyici.excel_seo_guncelle()
+                veri_senkron.senkronize_et()
+                return self._json(200, {"durum": "basarili", "guncellenen_adet": adet})
+            except Exception as e:
+                return self._json(500, {"hata": str(e)})
+
         try:
             veri = self._govde()
+            if yol == "/api/dosya-sil":
+                ad = os.path.basename(str(veri.get("ad") or ""))
+                if not ad:
+                    return self._json(400, {"hata": "dosya adı gerekli"})
+                hedef = os.path.join(ortak.KOK, "docs", ad)
+                if os.path.isfile(hedef):
+                    os.remove(hedef)
+                    return self._json(200, {"durum": "silindi", "dosya": ad})
+                return self._json(404, {"hata": "dosya bulunamadı"})
             if yol == "/api/gorev":
                 ajan = veri.get("ajan")
                 if not isinstance(ajan, str) or not ortak.AJAN_ID_DESENI.match(ajan):

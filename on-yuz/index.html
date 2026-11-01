@@ -178,6 +178,19 @@ td.sayi,th.sayi{text-align:right}
 .ozet-sayilar div{background:rgba(255,255,255,.72);border-radius:12px;padding:12px 16px;min-width:150px}
 .ozet-sayilar b{display:block;font-family:"Space Grotesk",sans-serif;font-size:26px;font-weight:700}
 .ozet-sayilar span{font-size:12px;color:var(--soluk)}
+.dosya-cubuk{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.dosya-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:13px;font-weight:600;transition:all .15s;cursor:pointer;text-decoration:none}
+.dosya-btn.ana{background:var(--mercan);color:#fff;box-shadow:0 3px 12px rgba(255,122,89,.3)}
+.dosya-btn.ana:hover{background:var(--mercan-k)}
+.dosya-btn.ikincil{background:rgba(255,255,255,.85);border:1px solid rgba(59,52,44,.15);color:var(--murekkep)}
+.dosya-btn.ikincil:hover{background:#fff;border-color:var(--mercan)}
+.dosya-btn.kucuk{padding:6px 12px;font-size:12px;border-radius:8px}
+.dosya-btn.indir{background:rgba(46,125,50,.12);color:#2e7d32;border:1px solid rgba(46,125,50,.25)}
+.dosya-btn.indir:hover{background:#2e7d32;color:#fff}
+.dosya-btn.sil{background:rgba(211,47,47,.08);color:#d32f2f;border:1px solid rgba(211,47,47,.2)}
+.dosya-btn.sil:hover{background:#d32f2f;color:#fff}
+.dosya-ikon{display:inline-block;width:24px;text-align:center;margin-right:8px;font-size:16px}
+.dosya-tablo td{vertical-align:middle}
 
 /* 3D bağlı etiketler */
 #etiketler{position:fixed;inset:0;pointer-events:none;z-index:2}
@@ -231,6 +244,7 @@ td.sayi,th.sayi{text-align:right}
     <button data-sekme="odalar">Odalar</button>
     <button data-sekme="hafiza">Hafıza</button>
     <button data-sekme="maliyet">Maliyet</button>
+    <button data-sekme="dosyalar">Dosyalar</button>
   </nav>
   <div class="bosluk"></div>
   <div class="hap"><span class="nokta" id="aktifNokta"></span><b id="aktif">0</b> ajan çalışıyor</div>
@@ -1741,7 +1755,7 @@ async function sekmeAc(ad) {
   document.querySelectorAll('#sekmeler button').forEach(b => b.classList.toggle('secili', b.dataset.sekme === ad));
   if (ad === 'ofis') { sayfa.classList.remove('acik'); return; }
   panelKapat();
-  const icerik = ad === 'odalar' ? odalarSayfasi() : ad === 'hafiza' ? await hafizaSayfasi() : maliyetSayfasi();
+  const icerik = ad === 'odalar' ? odalarSayfasi() : ad === 'hafiza' ? await hafizaSayfasi() : ad === 'dosyalar' ? await dosyalarSayfasi() : maliyetSayfasi();
   if (aktifSekme !== ad) return;
   sayfa.replaceChildren(...icerik); sayfa.classList.add('acik');
 }
@@ -1794,6 +1808,168 @@ function maliyetSayfasi() {
   });
   if (!k.length) { const tr = el('tr'); const td = el('td', null, 'Bugün henüz koşu yok.'); td.colSpan = 6; tr.append(td); tablo.append(tr); }
   return [el('h2', null, 'Maliyet'), el('p', 'alt', sayac.maliyet_notu || 'Ajanlar yalnız iş gelince çalışır; boştayken model çağrısı yok.'), ozet, tablo];
+}
+async function dosyalarSayfasi() {
+  let dosyalar = [];
+  try {
+    if (DEMO) {
+      dosyalar = [
+        { ad: 'Ürünler_1793508054.xlsx', boyut_metin: '68.5 KB', tarih: '01.11.2026 09:12', uzanti: '.xlsx', indir_url: '#' },
+        { ad: 'Urunler_SEO_Guncel.xlsx', boyut_metin: '68.5 KB', tarih: '01.11.2026 09:12', uzanti: '.xlsx', indir_url: '#' },
+        { ad: 'kapak.jpg', boyut_metin: '302.5 KB', tarih: '01.11.2026 07:26', uzanti: '.jpg', indir_url: '#' }
+      ];
+    } else {
+      const res = await getJSON('/api/dosyalar');
+      dosyalar = res.dosyalar || [];
+    }
+  } catch (e) {
+    return [el('h2', null, 'Dosyalar'), el('p', 'alt', 'Dosyalar alınamadı: ' + e.message)];
+  }
+
+  const h2 = el('h2', null, 'Dosyalar (docs/)');
+  const p = el('p', 'alt', 'docs/ klasöründeki Excel ürün listeleri, SEO katalogları ve kurumsal dökümanlar. Buradan dosyaları indirebilir, yeni dosya yükleyebilir ve tek tıkla SEO güncellemesi yapabilirsiniz.');
+
+  const cubuk = el('div', 'dosya-cubuk');
+
+  const fileInput = el('input');
+  fileInput.type = 'file';
+  fileInput.style.display = 'none';
+  fileInput.accept = '.xlsx,.xls,.csv,.png,.jpg,.jpeg,.pdf,.json,.md,.txt';
+  fileInput.onchange = async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    tost('Dosya yükleniyor: ' + file.name + '...');
+    try {
+      const resp = await fetch('/api/dosya-yukle?ad=' + encodeURIComponent(file.name), {
+        method: 'POST',
+        body: file
+      });
+      const data = await resp.json();
+      if (resp.ok) {
+        SES.bitti();
+        tost(data.seo ? file.name + ' yüklendi & ' + data.seo : file.name + ' başarıyla yüklendi!');
+        sekmeAc('dosyalar');
+      } else {
+        tost('Yükleme hatası: ' + (data.hata || 'Bilinmeyen hata'));
+      }
+    } catch (err) {
+      tost('Yükleme bağlantı hatası: ' + err.message);
+    }
+  };
+
+  const btnYukle = el('button', 'dosya-btn ana', '⬆ Dosya Yükle (.xlsx, .csv)');
+  btnYukle.onclick = () => fileInput.click();
+
+  const btnSeo = el('button', 'dosya-btn ikincil', '✨ SEO Metinlerini Güncelle');
+  btnSeo.onclick = async () => {
+    btnSeo.disabled = true;
+    btnSeo.textContent = 'Güncelleniyor...';
+    tost('SEO güncelleyici çalıştırılıyor...');
+    try {
+      const resp = await fetch('/api/seo-guncelle', { method: 'POST' });
+      const data = await resp.json();
+      if (resp.ok) {
+        SES.bitti();
+        tost(data.guncellenen_adet + ' ürünün SEO başlık ve açıklamaları güncellendi!');
+        sekmeAc('dosyalar');
+      } else {
+        tost('Hata: ' + (data.hata || 'Güncellenemedi'));
+      }
+    } catch (err) {
+      tost('Bağlantı hatası: ' + err.message);
+    } finally {
+      btnSeo.disabled = false;
+      btnSeo.textContent = '✨ SEO Metinlerini Güncelle';
+    }
+  };
+
+  const btnXml = el('button', 'dosya-btn ikincil', '🔄 SoftTR XML Senkronize Et');
+  btnXml.onclick = async () => {
+    btnXml.disabled = true;
+    btnXml.textContent = 'Senkronize ediliyor...';
+    tost('SoftTR XML akışı çekiliyor...');
+    try {
+      const resp = await fetch('/api/senkronize', { method: 'POST' });
+      const data = await resp.json();
+      if (resp.ok && data.xml?.durum === 'basarili') {
+        SES.bitti();
+        tost('SoftTR XML: ' + data.xml.toplam + ' ürün güncellendi!');
+      } else {
+        tost('XML senkronizasyon uyarısı');
+      }
+    } catch (err) {
+      tost('Hata: ' + err.message);
+    } finally {
+      btnXml.disabled = false;
+      btnXml.textContent = '🔄 SoftTR XML Senkronize Et';
+    }
+  };
+
+  cubuk.append(fileInput, btnYukle, btnSeo, btnXml);
+
+  const tablo = el('table', 'dosya-tablo');
+  const thead = el('tr');
+  ['Dosya Adı', 'Tür', 'Boyut', 'Tarih', 'İşlem'].forEach((b, i) => {
+    const th = el('th', i === 2 ? 'sayi' : '', b);
+    thead.append(th);
+  });
+  tablo.append(thead);
+
+  dosyalar.forEach(d => {
+    const tr = el('tr');
+    const tdAd = el('td');
+    let ikon = '📄';
+    let tur = 'Belge';
+    if (d.uzanti === '.xlsx' || d.uzanti === '.xls') { ikon = '📊'; tur = 'Excel Tablosu'; }
+    else if (d.uzanti === '.csv') { ikon = '📋'; tur = 'CSV Tablosu'; }
+    else if (['.jpg', '.jpeg', '.png', '.webp'].includes(d.uzanti)) { ikon = '🖼️'; tur = 'Görsel'; }
+    else if (d.uzanti === '.pdf') { ikon = '📕'; tur = 'PDF'; }
+
+    const spanIkon = el('span', 'dosya-ikon', ikon);
+    const bAd = el('b', null, d.ad);
+    tdAd.append(spanIkon, bAd);
+
+    const tdTur = el('td', null, tur);
+    const tdBoyut = el('td', 'sayi', d.boyut_metin || '-');
+    const tdTarih = el('td', null, d.tarih || '-');
+
+    const tdIslem = el('td');
+    const btnIndir = el('a', 'dosya-btn kucuk indir', '⬇ İndir');
+    btnIndir.href = d.indir_url || ('/api/dosya-indir?ad=' + encodeURIComponent(d.ad));
+    btnIndir.download = d.ad;
+    btnIndir.onclick = () => SES.tik();
+
+    const btnSil = el('button', 'dosya-btn kucuk sil', '🗑 Sil');
+    btnSil.style.marginLeft = '6px';
+    btnSil.onclick = async () => {
+      if (!confirm(d.ad + ' dosyasını silmek istediğinize emin misiniz?')) return;
+      try {
+        const resp = await postJSON('/api/dosya-sil', { ad: d.ad });
+        if (resp.durum === 200 || resp.veri?.durum === 'silindi') {
+          tost(d.ad + ' silindi.');
+          sekmeAc('dosyalar');
+        } else {
+          tost('Silme hatası');
+        }
+      } catch (err) {
+        tost('Silinemedi: ' + err.message);
+      }
+    };
+
+    tdIslem.append(btnIndir, btnSil);
+    tr.append(tdAd, tdTur, tdBoyut, tdTarih, tdIslem);
+    tablo.append(tr);
+  });
+
+  if (!dosyalar.length) {
+    const tr = el('tr');
+    const td = el('td', null, 'docs/ klasöründe henüz dosya yok. Yukarıdaki "Dosya Yükle" butonunu kullanarak dosya ekleyebilirsiniz.');
+    td.colSpan = 5;
+    tr.append(td);
+    tablo.append(tr);
+  }
+
+  return [h2, p, cubuk, tablo];
 }
 document.querySelectorAll('#sekmeler button').forEach(b => { b.onclick = () => { SES.tik(); sekmeAc(b.dataset.sekme); }; b.onmouseenter = () => SES.uzerinde(); });
 
