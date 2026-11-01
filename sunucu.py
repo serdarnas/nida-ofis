@@ -344,21 +344,141 @@ def sayac_yaniti():
 
 
 def hafiza_yaniti():
-    """hafiza/<ajan>.md listesi + her dosyanın son tarihli maddeleri (salt okuma, sabit dizin)."""
+    """Tüm 11 ajanın hafıza kartları + genel kurumsal hafıza (marka-profili.md)."""
+    os.makedirs(ortak.HAFIZA_DIZINI, exist_ok=True)
+    try:
+        veri, tablo = ortak.ajanlari_yukle()
+        ajanlar = veri.get("ajanlar", [])
+    except Exception:
+        ajanlar = []
+
+    mevcut_dosyalar = set(os.listdir(ortak.HAFIZA_DIZINI)) if os.path.isdir(ortak.HAFIZA_DIZINI) else set()
     dosyalar = []
-    for ad in sorted(os.listdir(ortak.HAFIZA_DIZINI)):
+    islenen_ajanlar = set()
+
+    for aj in ajanlar:
+        aj_id = aj.get("id")
+        if not aj_id:
+            continue
+        islenen_ajanlar.add(aj_id)
+        yol = os.path.join(ortak.HAFIZA_DIZINI, f"{aj_id}.md")
+        maddeler = []
+        guncelleme = None
+        if os.path.isfile(yol):
+            try:
+                with open(yol, encoding="utf-8") as f:
+                    satirlar = [s.strip() for s in f.read().splitlines()]
+                maddeler = [s[2:].strip() for s in satirlar if s.startswith("- ")]
+                guncelleme = datetime.fromtimestamp(os.path.getmtime(yol)).strftime("%d.%m.%Y %H:%M")
+            except Exception:
+                pass
+
+        dosyalar.append({
+            "ajan": aj_id,
+            "ad": aj.get("ad", aj_id),
+            "oda": aj.get("oda", "genel"),
+            "aciklama": aj.get("aciklama", ""),
+            "madde_sayisi": len(maddeler),
+            "maddeler": maddeler,
+            "son_maddeler": maddeler[-4:] if maddeler else [],
+            "guncelleme": guncelleme or "-"
+        })
+
+    for ad in sorted(mevcut_dosyalar):
         kok, uzanti = os.path.splitext(ad)
-        if uzanti != ".md" or not ortak.AJAN_ID_DESENI.match(kok):
-            continue
-        yol = os.path.join(ortak.HAFIZA_DIZINI, ad)
-        if not os.path.isfile(yol) or os.path.islink(yol):
-            continue
-        with open(yol, encoding="utf-8") as f:
-            satirlar = [s.strip() for s in f.read().splitlines()]
-        maddeler = [s[2:][:300] for s in satirlar if s.startswith("- ")]
-        dosyalar.append({"ajan": kok, "madde_sayisi": len(maddeler), "son_maddeler": maddeler[-3:],
-                         "guncelleme": datetime.fromtimestamp(os.path.getmtime(yol)).isoformat(timespec="seconds")})
-    return {"hafiza": dosyalar}
+        if uzanti == ".md" and ortak.AJAN_ID_DESENI.match(kok) and kok not in islenen_ajanlar:
+            yol = os.path.join(ortak.HAFIZA_DIZINI, ad)
+            if os.path.isfile(yol):
+                try:
+                    with open(yol, encoding="utf-8") as f:
+                        satirlar = [s.strip() for s in f.read().splitlines()]
+                    maddeler = [s[2:].strip() for s in satirlar if s.startswith("- ")]
+                    dosyalar.append({
+                        "ajan": kok,
+                        "ad": kok,
+                        "oda": "genel",
+                        "aciklama": "",
+                        "madde_sayisi": len(maddeler),
+                        "maddeler": maddeler,
+                        "son_maddeler": maddeler[-4:] if maddeler else [],
+                        "guncelleme": datetime.fromtimestamp(os.path.getmtime(yol)).strftime("%d.%m.%Y %H:%M")
+                    })
+                except Exception:
+                    pass
+
+    genel_hafiza = None
+    marka_yolu = os.path.join(ortak.KOK, "marka-profili.md")
+    if os.path.isfile(marka_yolu):
+        try:
+            with open(marka_yolu, encoding="utf-8") as f:
+                marka_metin = f.read()
+            genel_hafiza = {
+                "baslik": "Nida Zeytin Kurumsal Marka İlkeleri & Kimliği",
+                "dosya": "marka-profili.md",
+                "ozet": marka_metin[:450] + ("…" if len(marka_metin) > 450 else ""),
+                "tam_metin": marka_metin,
+                "guncelleme": datetime.fromtimestamp(os.path.getmtime(marka_yolu)).strftime("%d.%m.%Y %H:%M")
+            }
+        except Exception:
+            pass
+
+    return {
+        "hafiza": dosyalar,
+        "genel": genel_hafiza,
+        "toplam_madde": sum(d["madde_sayisi"] for d in dosyalar)
+    }
+
+
+def hafiza_madde_ekle(ajan_id, madde):
+    if not ajan_id or not ortak.AJAN_ID_DESENI.match(ajan_id):
+        raise ValueError("Geçersiz ajan ID")
+    madde = str(madde or "").strip()
+    if not madde:
+        raise ValueError("Kural veya tercih metni boş olamaz")
+
+    os.makedirs(ortak.HAFIZA_DIZINI, exist_ok=True)
+    yol = os.path.join(ortak.HAFIZA_DIZINI, f"{ajan_id}.md")
+
+    tarih_str = datetime.now().strftime("%d.%m.%Y %H:%M")
+    yeni_satir = f"- [{tarih_str}] {madde}\n"
+
+    if not os.path.exists(yol):
+        with open(yol, "w", encoding="utf-8") as f:
+            f.write(f"# {ajan_id} Hafızası\n\n{yeni_satir}")
+    else:
+        with open(yol, "a", encoding="utf-8") as f:
+            f.write(yeni_satir)
+    return True
+
+
+def hafiza_madde_sil(ajan_id, indeks=None, madde_metin=None):
+    if not ajan_id or not ortak.AJAN_ID_DESENI.match(ajan_id):
+        raise ValueError("Geçersiz ajan ID")
+    yol = os.path.join(ortak.HAFIZA_DIZINI, f"{ajan_id}.md")
+    if not os.path.isfile(yol):
+        return False
+
+    with open(yol, "r", encoding="utf-8") as f:
+        satirlar = f.readlines()
+
+    yeni_satirlar = []
+    madde_idx = 0
+    silindi = False
+
+    for s in satirlar:
+        trim = s.strip()
+        if trim.startswith("- "):
+            if (indeks is not None and madde_idx == int(indeks)) or (madde_metin and madde_metin in trim):
+                silindi = True
+                madde_idx += 1
+                continue
+            madde_idx += 1
+        yeni_satirlar.append(s)
+
+    if silindi:
+        with open(yol, "w", encoding="utf-8") as f:
+            f.writelines(yeni_satirlar)
+    return silindi
 
 
 def dosyalar_yaniti():
@@ -591,6 +711,17 @@ class Isleyici(SimpleHTTPRequestHandler):
             return self._json(200, token_sayac.api_yaniti())
         if yol.path == "/api/hafiza":
             return self._json(200, hafiza_yaniti())
+        if yol.path == "/api/hafiza-detay":
+            qs = parse_qs(yol.query)
+            ajan = (qs.get("ajan") or [""])[0]
+            if not ajan or not ortak.AJAN_ID_DESENI.match(ajan):
+                return self._json(400, {"hata": "geçersiz ajan"})
+            yol_md = os.path.join(ortak.HAFIZA_DIZINI, f"{ajan}.md")
+            icerik = ""
+            if os.path.isfile(yol_md):
+                with open(yol_md, "r", encoding="utf-8") as f:
+                    icerik = f.read()
+            return self._json(200, {"ajan": ajan, "icerik": icerik})
         if yol.path == "/api/kota":
             return self._json(200, evren_istemci.kota_sorgula())
         if yol.path == "/api/terminaller":
@@ -739,6 +870,33 @@ class Isleyici(SimpleHTTPRequestHandler):
                     os.remove(hedef)
                     return self._json(200, {"durum": "silindi", "dosya": ad})
                 return self._json(404, {"hata": "dosya bulunamadı"})
+            if yol == "/api/hafiza-ekle":
+                ajan = str(veri.get("ajan") or "").strip()
+                madde = str(veri.get("madde") or "").strip()
+                try:
+                    hafiza_madde_ekle(ajan, madde)
+                    return self._json(200, {"durum": "basarili", **hafiza_yaniti()})
+                except Exception as e:
+                    return self._json(400, {"hata": str(e)})
+            if yol == "/api/hafiza-sil":
+                ajan = str(veri.get("ajan") or "").strip()
+                indeks = veri.get("indeks")
+                madde = str(veri.get("madde") or "").strip()
+                try:
+                    hafiza_madde_sil(ajan, indeks=indeks, madde_metin=madde)
+                    return self._json(200, {"durum": "basarili", **hafiza_yaniti()})
+                except Exception as e:
+                    return self._json(400, {"hata": str(e)})
+            if yol == "/api/hafiza-kaydet":
+                ajan = str(veri.get("ajan") or "").strip()
+                icerik = str(veri.get("icerik") or "")
+                if not ajan or not ortak.AJAN_ID_DESENI.match(ajan):
+                    return self._json(400, {"hata": "geçersiz ajan"})
+                os.makedirs(ortak.HAFIZA_DIZINI, exist_ok=True)
+                yol_md = os.path.join(ortak.HAFIZA_DIZINI, f"{ajan}.md")
+                with open(yol_md, "w", encoding="utf-8") as f:
+                    f.write(icerik)
+                return self._json(200, {"durum": "basarili"})
             if yol == "/api/gorev":
                 ajan = veri.get("ajan")
                 if not isinstance(ajan, str) or not ortak.AJAN_ID_DESENI.match(ajan):

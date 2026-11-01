@@ -280,6 +280,54 @@ td.sayi,th.sayi{text-align:right}
 .filtre-btn{font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid rgba(59,52,44,.1);cursor:pointer;transition:all .15s}
 .filtre-btn:hover{background:#fff;border-color:var(--murekkep)}
 .filtre-btn.secili{background:var(--murekkep);color:#fff;border-color:var(--murekkep);font-weight:600}
+
+/* Hafıza Merkezi Stilleri */
+.hafiza-kontrol{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0;flex-wrap:wrap}
+.hafiza-arama{flex:1;min-width:240px;max-width:440px;padding:9px 14px 9px 36px;border-radius:12px;background:rgba(255,255,255,.8);border:1px solid rgba(59,52,44,.12);font:inherit;font-size:13.5px;color:var(--murekkep);outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a7f72' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");background-repeat:no-repeat;background-position:11px center;background-size:15px;transition:border-color .15s}
+.hafiza-arama:focus{border-color:var(--mercan);background-color:#fff}
+.hafiza-btn-ekle{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;background:var(--mercan);color:#fff;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(255,122,89,.3);cursor:pointer;border:none;transition:all .15s}
+.hafiza-btn-ekle:hover{background:var(--mercan-k);transform:translateY(-1px)}
+
+.hafiza-genel-kart{background:linear-gradient(135deg,rgba(255,245,235,.95) 0%,rgba(254,235,224,.9) 100%);border:1px solid rgba(255,122,89,.35);border-radius:16px;padding:18px 20px;margin-bottom:20px;box-shadow:0 4px 18px rgba(255,122,89,.08);display:flex;flex-direction:column;gap:10px}
+.hafiza-genel-ust{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hafiza-genel-baslik{display:flex;align-items:center;gap:10px}
+.hafiza-genel-baslik h3{font-family:"Space Grotesk",sans-serif;font-size:16px;font-weight:700;color:var(--murekkep)}
+.hafiza-genel-baslik small{font-size:11.5px;color:var(--soluk);margin-left:4px}
+.hafiza-genel-ozet{font-size:13px;line-height:1.55;color:#52473c;background:rgba(255,255,255,.6);padding:10px 14px;border-radius:10px;border:1px solid rgba(255,122,89,.15);white-space:pre-line}
+
+.hafiza-izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-top:10px}
+.hafiza-kart{background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 16px rgba(90,70,50,.05);transition:transform .15s,box-shadow .15s}
+.hafiza-kart:hover{box-shadow:0 6px 22px rgba(90,70,50,.09);transform:translateY(-2px)}
+.hafiza-kart-ust{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.hafiza-kart-sol{display:flex;align-items:center;gap:10px}
+.hafiza-kart-sol h4{font-family:"Space Grotesk",sans-serif;font-size:14.5px;font-weight:700;line-height:1.2}
+.hafiza-kart-sol small{font-size:11.5px;color:var(--soluk);display:block;margin-top:2px}
+.hafiza-rozet{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;background:rgba(59,52,44,.07);color:#5d5348;white-space:nowrap}
+.hafiza-rozet.dolu{background:rgba(255,122,89,.12);color:var(--mercan-k)}
+
+.hafiza-maddeler{list-style:none;display:flex;flex-direction:column;gap:6px;flex:1;min-height:48px}
+.hafiza-madde{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:8px;background:rgba(250,245,237,.8);border:1px solid rgba(59,52,44,.06);font-size:12.5px;line-height:1.45;color:#3f372f}
+.hafiza-madde:hover{background:#fff}
+.hafiza-madde-metin{flex:1;min-width:0;word-break:break-word}
+.hafiza-sil-btn{opacity:0;cursor:pointer;border:none;background:none;font-size:12px;color:var(--soluk);padding:2px 4px;border-radius:4px;transition:opacity .15s,color .15s}
+.hafiza-madde:hover .hafiza-sil-btn{opacity:1}
+.hafiza-sil-btn:hover{color:#d32f2f;background:rgba(211,47,47,.08)}
+.hafiza-bos{font-size:12px;color:var(--soluk);padding:14px 6px;text-align:center;font-style:italic;background:rgba(59,52,44,.02);border-radius:8px}
+
+.hafiza-hizli-form{display:flex;gap:6px;margin-top:auto;padding-top:4px}
+.hafiza-hizli-form input{flex:1;border:1px solid rgba(59,52,44,.12);border-radius:8px;padding:6px 10px;font:inherit;font-size:12px;background:#fff;outline:none;min-width:0}
+.hafiza-hizli-form input:focus{border-color:var(--mercan)}
+.hafiza-hizli-form button{background:var(--murekkep);color:#fff;font-size:11.5px;font-weight:600;padding:6px 10px;border-radius:8px;cursor:pointer;border:none;white-space:nowrap;transition:background .15s}
+.hafiza-hizli-form button:hover{background:#2a241e}
+
+/* Yeni Kural Ekleme Popup / Modal */
+.hafiza-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:min(480px,calc(100vw - 32px));background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(59,52,44,.24);padding:22px;z-index:20;display:flex;flex-direction:column;gap:14px;opacity:0;pointer-events:none;transition:all .2s ease}
+.hafiza-modal.acik{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.hafiza-modal h3{font-family:"Space Grotesk",sans-serif;font-size:18px;font-weight:700}
+.hafiza-modal select,.hafiza-modal textarea{font:inherit;font-size:13.5px;padding:9px 12px;border:1px solid rgba(59,52,44,.15);border-radius:10px;outline:none}
+.hafiza-modal textarea{resize:vertical;min-height:90px}
+.hafiza-modal-butonlar{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+
 </style>
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
@@ -340,6 +388,21 @@ td.sayi,th.sayi{text-align:right}
   </div>
   <div class="rapor-govde" id="raporGovde"></div>
 </aside>
+<div class="hafiza-modal" id="hafizaModal">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <h3>➕ Yeni Kural / Tercih Ekle</h3>
+    <button class="rapor-kapat" id="hafizaModalKapat">×</button>
+  </div>
+  <p style="font-size:12.5px;color:var(--soluk);">Ajana iş yaparken uyması gereken kalıcı bir kural veya tercih öğretin.</p>
+  <label style="font-size:12px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Hedef Ajan:</label>
+  <select id="hafizaAjanSecim"></select>
+  <label style="font-size:12px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Kural / Tercih Metni:</label>
+  <textarea id="hafizaKuralMetin" placeholder="Örn: Trendyol ürün açıklamalarında Edremit Körfezi coğrafi işaretini mutlaka belirt..."></textarea>
+  <div class="hafiza-modal-butonlar">
+    <button class="dugme" id="hafizaModalIptal">İptal</button>
+    <button class="hafiza-btn-ekle" id="hafizaModalKaydet">Ajana Öğret</button>
+  </div>
+</div>
 
 <form class="komut cam" id="komut" autocomplete="off">
   <span class="ceo-ikon">CEO</span>
@@ -1862,22 +1925,238 @@ function odalarSayfasi() {
   });
   return [el('h2', null, 'Odalar'), el('p', 'alt', ODALAR.length + ' oda, ' + AJANLAR.length + ' ajan. Her oda iş gelince uyanır.'), iz];
 }
+let seciliHafizaArama = '';
+
 async function hafizaSayfasi() {
-  let liste = [];
-  try { liste = DEMO ? demoVeri.hafiza : (await getJSON('/api/hafiza')).hafiza; }
-  catch { return [el('h2', null, 'Hafıza'), el('p', 'alt', 'Hafıza listesi alınamadı.')]; }
-  const sirali = [...liste].sort((x, y) => String(y.guncelleme).localeCompare(String(x.guncelleme)));
-  const iz = el('div', 'izgara');
-  sirali.forEach(h => {
-    const k = el('div', 'kart');
-    const ust = el('div', 'ust'); ust.append(avatar(h.ajan), document.createTextNode('hafiza/' + h.ajan + '.md · ' + h.madde_sayisi + ' madde'));
-    const ul = el('ul'); (h.son_maddeler || []).slice().reverse().forEach(m => ul.append(el('li', null, kisa(m, 160))));
-    if (!(h.son_maddeler || []).length) ul.append(el('li', null, 'henüz madde yok'));
-    k.append(ust, el('h4', null, ajanBul(h.ajan)?.ad || h.ajan), ul);
-    iz.append(k);
+  let veri = { hafiza: [], genel: null, toplam_madde: 0 };
+  try {
+    veri = await getJSON('/api/hafiza');
+  } catch (err) {
+    return [el('h2', null, 'Hafıza'), el('p', 'alt', 'Hafıza listesi alınamadı: ' + err.message)];
+  }
+
+  const liste = veri.hafiza || [];
+  const genel = veri.genel;
+  const toplam = veri.toplam_madde || 0;
+
+  // Başlık
+  const h2 = el('h2', null, 'Hafıza Merkezi & Kurallar');
+  const p = el('p', 'alt', `11 ajanın kalıcı iş tercihleri ve şirket prensipleri. Toplam ${toplam} aktif kural tanımlı.`);
+
+  // Kontrol Barı
+  const kontrol = el('div', 'hafiza-kontrol');
+  
+  const aramaInput = el('input', 'hafiza-arama');
+  aramaInput.type = 'text';
+  aramaInput.placeholder = 'Kural, anahtar kelime veya ajan ara...';
+  aramaInput.value = seciliHafizaArama;
+  aramaInput.oninput = () => {
+    seciliHafizaArama = aramaInput.value.toLowerCase().trim();
+    kartlariFiltrele();
+  };
+
+  const btnYeniKural = el('button', 'hafiza-btn-ekle', '➕ Yeni Kural Ekle');
+  btnYeniKural.onclick = () => hafizaModalAc();
+
+  kontrol.append(aramaInput, btnYeniKural);
+
+  // Kurumsal Genel Hafıza Kartı
+  const genelKart = el('div', 'hafiza-genel-kart');
+  if (genel) {
+    const gUst = el('div', 'hafiza-genel-ust');
+    const gBaslik = el('div', 'hafiza-genel-baslik');
+    gBaslik.append(el('h3', null, '🏢 ' + genel.baslik), el('small', null, '· ' + (genel.guncelleme || '')));
+    
+    const btnGenelIncele = el('button', 'dosya-btn', '📄 Kurumsal Profili Gör ↗');
+    btnGenelIncele.onclick = () => {
+      raporGosterBaslik('Nida Zeytin Kurumsal Marka Profili & İlkeleri', genel.dosya, genel.tam_metin, genel.guncelleme);
+    };
+    gUst.append(gBaslik, btnGenelIncele);
+
+    const gOzet = el('div', 'hafiza-genel-ozet', genel.ozet || 'Kurumsal marka ilkeleri tanımlı.');
+    genelKart.append(gUst, gOzet);
+  }
+
+  // Izgara
+  const izgara = el('div', 'hafiza-izgara');
+
+  function kartlariFiltrele() {
+    izgara.replaceChildren();
+    
+    const filtrelenmis = liste.filter(h => {
+      if (!seciliHafizaArama) return true;
+      const ajAd = (h.ad || h.ajan || '').toLowerCase();
+      const ajAjan = (h.ajan || '').toLowerCase();
+      const ajAciklama = (h.aciklama || '').toLowerCase();
+      const maddelerMetin = (h.maddeler || []).join(' ').toLowerCase();
+      return ajAd.includes(seciliHafizaArama) || ajAjan.includes(seciliHafizaArama) || ajAciklama.includes(seciliHafizaArama) || maddelerMetin.includes(seciliHafizaArama);
+    });
+
+    if (!filtrelenmis.length) {
+      const bos = el('div', 'hafiza-bos');
+      bos.style.gridColumn = '1 / -1';
+      bos.textContent = 'Aramanıza uygun ajan veya kural bulunamadı.';
+      izgara.append(bos);
+      return;
+    }
+
+    filtrelenmis.forEach(h => {
+      const kart = el('div', 'hafiza-kart');
+      
+      // Üst Başlık
+      const ust = el('div', 'hafiza-kart-ust');
+      const sol = el('div', 'hafiza-kart-sol');
+      sol.append(avatar(h.ajan), el('div', null, [
+        el('h4', null, h.ad || h.ajan),
+        el('small', null, h.aciklama ? kisa(h.aciklama, 42) : ('hafiza/' + h.ajan + '.md'))
+      ]));
+      
+      const rozet = el('span', 'hafiza-rozet' + (h.madde_sayisi > 0 ? ' dolu' : ''), h.madde_sayisi + ' kural');
+      ust.append(sol, rozet);
+
+      // Maddeler Listesi
+      const ul = el('ul', 'hafiza-maddeler');
+      const maddeler = h.maddeler || [];
+
+      if (!maddeler.length) {
+        ul.append(el('li', 'hafiza-bos', 'Henüz kural eklenmedi. Aşağıdan ilk tercihinizi ekleyin.'));
+      } else {
+        maddeler.forEach((m, idx) => {
+          const li = el('li', 'hafiza-madde');
+          const span = el('span', 'hafiza-madde-metin', m);
+          const silBtn = el('button', 'hafiza-sil-btn', '🗑');
+          silBtn.title = 'Kuralı Sil';
+          silBtn.onclick = async (e) => {
+            e.stopPropagation();
+            if (confirm('Bu kuralı ajan hafızasından silmek istediğinize emin misiniz?\n\n"' + m + '"')) {
+              await hafizaKuralSil(h.ajan, idx);
+            }
+          };
+          li.append(span, silBtn);
+          ul.append(li);
+        });
+      }
+
+      // Hızlı Kural Ekleme Formu
+      const form = el('form', 'hafiza-hizli-form');
+      const inp = el('input');
+      inp.placeholder = '+ Kural veya tercih yaz...';
+      const btn = el('button', null, 'Ekle');
+      btn.type = 'submit';
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        const v = inp.value.trim();
+        if (v) {
+          await hafizaKuralEkle(h.ajan, v);
+          inp.value = '';
+        }
+      };
+      form.append(inp, btn);
+
+      kart.append(ust, ul, form);
+      izgara.append(kart);
+    });
+  }
+
+  kartlariFiltrele();
+
+  return [h2, p, kontrol, genel ? genelKart : null, izgara].filter(Boolean);
+}
+
+async function hafizaKuralEkle(ajanId, madde) {
+  try {
+    const { durum, veri } = await postJSON('/api/hafiza-ekle', { ajan: ajanId, madde });
+    if (durum === 200) {
+      tost('Kural hafızaya eklendi');
+      if (aktifSekme === 'hafiza') sekmeAc('hafiza');
+    } else {
+      tost('Hata: ' + (veri.hata || 'Eklenemedi'));
+    }
+  } catch (err) {
+    tost('Bağlantı hatası: ' + err.message);
+  }
+}
+
+async function hafizaKuralSil(ajanId, indeks) {
+  try {
+    const { durum, veri } = await postJSON('/api/hafiza-sil', { ajan: ajanId, indeks });
+    if (durum === 200) {
+      tost('Kural silindi');
+      if (aktifSekme === 'hafiza') sekmeAc('hafiza');
+    } else {
+      tost('Hata: ' + (veri.hata || 'Silinemedi'));
+    }
+  } catch (err) {
+    tost('Bağlantı hatası: ' + err.message);
+  }
+}
+
+function hafizaModalAc(varsayilanAjan = '') {
+  const modal = $('hafizaModal');
+  const perde = $('raporPerde');
+  const sel = $('hafizaAjanSecim');
+  const txt = $('hafizaKuralMetin');
+  
+  sel.replaceChildren();
+  AJANLAR.forEach(a => {
+    const opt = el('option', null, a.ad + ' (' + a.id + ')');
+    opt.value = a.id;
+    if (a.id === varsayilanAjan) opt.selected = true;
+    sel.append(opt);
   });
-  const toplam = liste.reduce((t, h) => t + (h.madde_sayisi || 0), 0);
-  return [el('h2', null, 'Hafıza'), el('p', 'alt', 'Her ajanın kalıcı hafızası: senin tercih ve revizelerin. Ajan işi bir kez öğrenir, koşu sonunda yeni madde ekler. Toplam ' + toplam + ' madde, son güncellenen önde.'), iz];
+  txt.value = '';
+
+  perde.classList.add('acik');
+  modal.classList.add('acik');
+}
+
+function hafizaModalKapat() {
+  $('hafizaModal')?.classList.remove('acik');
+  $('raporPerde')?.classList.remove('acik');
+}
+
+$('hafizaModalKapat').onclick = hafizaModalKapat;
+$('hafizaModalIptal').onclick = hafizaModalKapat;
+$('hafizaModalKaydet').onclick = async () => {
+  const sel = $('hafizaAjanSecim');
+  const txt = $('hafizaKuralMetin');
+  const ajan = sel.value;
+  const kural = txt.value.trim();
+  if (!kural) {
+    tost('Lütfen kural metni yazın');
+    return;
+  }
+  hafizaModalKapat();
+  await hafizaKuralEkle(ajan, kural);
+};
+
+function raporGosterBaslik(baslik, dosya, metin, tarih = '') {
+  const perde = $('raporPerde');
+  const modal = $('raporModal');
+  const bSol = $('raporBaslikSol');
+  const govde = $('raporGovde');
+  const meta = $('raporMetaEtiket');
+  const indir = $('raporIndirBtn');
+  
+  seciliRaporMetni = metin || '';
+  bSol.replaceChildren(
+    el('div', null, [
+      el('h2', null, baslik),
+      el('small', null, [dosya, tarih].filter(Boolean).join(' · '))
+    ])
+  );
+  meta.replaceChildren(
+    el('span', 'durum', [el('span', 'nokta'), document.createTextNode(dosya)])
+  );
+  indir.href = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(metin);
+  indir.setAttribute('download', dosya);
+
+  const mDiv = el('div', 'markdown-icerik');
+  mDiv.innerHTML = mdRender(metin);
+  govde.replaceChildren(mDiv);
+
+  perde.classList.add('acik');
+  modal.classList.add('acik');
 }
 function maliyetSayfasi() {
   const k = sayac.kosular || [];
