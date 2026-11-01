@@ -1,6 +1,6 @@
 # Nida Zeytin — Canlı Ürün, Fiyat ve Stok Kataloğu (SoftTR XML)
 
-> **Son Güncelleme:** 2026-11-01 08:05
+> **Son Güncelleme:** 2026-11-01 09:12
 > **Kaynak:** SoftTR XML Export (`https://www.nidazeytin.com/xmlexport/export.php?id=7&source=softtr`)
 > **Toplam Ürün:** 53
 
