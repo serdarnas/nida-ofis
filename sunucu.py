@@ -22,6 +22,7 @@ import kopru  # noqa: E402
 import token_sayac  # noqa: E402
 import evren_istemci  # noqa: E402
 import veri_senkron  # noqa: E402
+import otonom_takvim  # noqa: E402
 
 HOST = os.environ.get("OFIS_HOST", "127.0.0.1")
 ILK_PORT = int(os.environ.get("OFIS_PORT") or os.environ.get("PORT") or "8796")
@@ -767,6 +768,12 @@ class Isleyici(SimpleHTTPRequestHandler):
             qs = parse_qs(yol.query)
             ajan_filtre = (qs.get("ajan") or [None])[0]
             return self._json(200, raporlar_listesi(ajan_filtre))
+        if yol.path == "/api/takvim":
+            qs = parse_qs(yol.query)
+            durum_f = (qs.get("durum") or [None])[0]
+            etiket_f = (qs.get("etiket") or [None])[0]
+            ajan_f = (qs.get("ajan") or [None])[0]
+            return self._json(200, otonom_takvim.takvim_yaniti(durum_f, etiket_f, ajan_f))
         if yol.path == "/api/cikti":
             qs = parse_qs(yol.query)
             kosu_id = (qs.get("kosu_id") or [""])[0]
@@ -897,6 +904,56 @@ class Isleyici(SimpleHTTPRequestHandler):
                 with open(yol_md, "w", encoding="utf-8") as f:
                     f.write(icerik)
                 return self._json(200, {"durum": "basarili"})
+            if yol == "/api/takvim-ekle":
+                try:
+                    yeni = otonom_takvim.gorev_ekle(
+                        baslik=veri.get("baslik"),
+                        ajan=veri.get("ajan"),
+                        tarih_saat=veri.get("tarih_saat"),
+                        tekrar=veri.get("tekrar") or "tek_sefer",
+                        etiketler=veri.get("etiketler"),
+                        prompt=veri.get("prompt") or "",
+                    )
+                    return self._json(200, {"durum": "basarili", "gorev": yeni, **otonom_takvim.takvim_yaniti()})
+                except Exception as e:
+                    return self._json(400, {"hata": str(e)})
+            if yol == "/api/takvim-guncelle":
+                try:
+                    gid = str(veri.get("id") or "").strip()
+                    guncel = otonom_takvim.gorev_guncelle(
+                        gid,
+                        baslik=veri.get("baslik"),
+                        ajan=veri.get("ajan"),
+                        tarih_saat=veri.get("tarih_saat"),
+                        tekrar=veri.get("tekrar"),
+                        durum=veri.get("durum"),
+                        etiketler=veri.get("etiketler"),
+                        prompt=veri.get("prompt"),
+                        yayinlandi=veri.get("yayinlandi"),
+                    )
+                    return self._json(200, {"durum": "basarili", "gorev": guncel, **otonom_takvim.takvim_yaniti()})
+                except Exception as e:
+                    return self._json(400, {"hata": str(e)})
+            if yol == "/api/takvim-sil":
+                gid = str(veri.get("id") or "").strip()
+                if otonom_takvim.gorev_sil(gid):
+                    return self._json(200, {"durum": "silindi", **otonom_takvim.takvim_yaniti()})
+                return self._json(404, {"hata": "görev bulunamadı"})
+            if yol == "/api/takvim-simdi-calistir":
+                gid = str(veri.get("id") or "").strip()
+                try:
+                    sonuc = otonom_takvim.gorev_simdi_tetikle(gid, gorev_baslat)
+                    return self._json(200, {"durum": "baslatildi", "kosu": sonuc, **otonom_takvim.takvim_yaniti()})
+                except IstekHatasi as e:
+                    return self._json(e.kod, {"hata": str(e)})
+                except Exception as e:
+                    return self._json(400, {"hata": str(e)})
+            if yol == "/api/otonom-ayar":
+                ayarlar = otonom_takvim.otonom_ayar_guncelle(
+                    otonom_aktif=veri.get("otonom_aktif"),
+                    xml_tetik_aktif=veri.get("xml_tetik_aktif"),
+                )
+                return self._json(200, {"durum": "basarili", "ayarlar": ayarlar})
             if yol == "/api/gorev":
                 ajan = veri.get("ajan")
                 if not isinstance(ajan, str) or not ortak.AJAN_ID_DESENI.match(ajan):
@@ -1015,6 +1072,17 @@ def main():
                 sys.stderr.write(f"Periyodik senkronizasyon hatası: {e}\n")
 
     threading.Thread(target=_periyodik_senkron, name="veri-senkron", daemon=True).start()
+
+    def _periyodik_otonom_takvim():
+        time.sleep(5)
+        while True:
+            try:
+                otonom_takvim.zamani_gelenleri_kontrol_et(gorev_baslat)
+            except Exception as e:
+                sys.stderr.write(f"Otonom takvim kontrol hatası: {e}\n")
+            time.sleep(25)
+
+    threading.Thread(target=_periyodik_otonom_takvim, name="otonom-takvim", daemon=True).start()
 
     sunucu, port = bos_port_ile_ac()
     with open(os.path.join(ortak.KOK, "port"), "w") as f:

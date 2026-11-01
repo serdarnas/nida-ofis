@@ -1,7 +1,7 @@
 # Dahili Ürün Fiyat, Maliyet ve Pazaryeri Listesi (Excel)
 
 > **Kaynak Dosya:** `Urunler_SEO_Guncel.xlsx`
-> **İşlenme Tarihi:** 2026-11-01 10:11
+> **İşlenme Tarihi:** 2026-11-01 10:51
 > **Toplam Ürün:** 80
 
 | 116 |  |  |  |  |  |  |  |  |  |

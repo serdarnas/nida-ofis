@@ -328,6 +328,84 @@ td.sayi,th.sayi{text-align:right}
 .hafiza-modal textarea{resize:vertical;min-height:90px}
 .hafiza-modal-butonlar{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
 
+
+/* Takvim & Otonom Görev Merkezi Stilleri */
+.takvim-ust-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-radius:16px;background:linear-gradient(135deg,rgba(255,248,240,.95),rgba(255,238,224,.9));border:1px solid rgba(255,122,89,.3);margin:14px 0;flex-wrap:wrap}
+.otonom-salter-kutu{display:flex;align-items:center;gap:12px}
+.otonom-salter{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid rgba(59,52,44,.15);background:#fff;transition:all .2s}
+.otonom-salter.aktif{background:#2e7d32;color:#fff;border-color:#2e7d32;box-shadow:0 3px 12px rgba(46,125,50,.28)}
+.otonom-salter.pasif{background:rgba(59,52,44,.08);color:#6d6357}
+.takvim-kpi-grup{display:flex;gap:10px;flex-wrap:wrap}
+.takvim-kpi{padding:6px 12px;border-radius:10px;background:rgba(255,255,255,.78);border:1px solid rgba(59,52,44,.08);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.takvim-kpi b{font-family:"Space Grotesk",sans-serif;font-size:15px}
+
+.takvim-filtre-satir{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;flex-wrap:wrap}
+.takvim-durum-cubuk{display:flex;gap:6px;flex-wrap:wrap}
+.takvim-etiket-cubuk{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 16px;padding:10px 12px;background:rgba(255,255,255,.55);border-radius:12px;border:1px solid rgba(59,52,44,.06)}
+
+.kanal-etiket{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(59,52,44,.08);color:#4a4137;cursor:pointer;border:1px solid transparent;transition:all .15s;white-space:nowrap}
+.kanal-etiket:hover{transform:translateY(-1px);filter:brightness(.95)}
+.kanal-etiket.secili{box-shadow:0 0 0 2px var(--murekkep);font-weight:700}
+.kanal-etiket.et-instagram{background:rgba(225,48,108,.13);color:#c11f57;border-color:rgba(225,48,108,.25)}
+.kanal-etiket.et-facebook{background:rgba(24,119,242,.12);color:#1259b8;border-color:rgba(24,119,242,.25)}
+.kanal-etiket.et-reels{background:rgba(131,58,180,.13);color:#6e2899;border-color:rgba(131,58,180,.25)}
+.kanal-etiket.et-linkedin,.kanal-etiket.et-b2b{background:rgba(10,102,194,.13);color:#084c91;border-color:rgba(10,102,194,.25)}
+.kanal-etiket.et-metaads{background:rgba(255,122,89,.16);color:#c94524;border-color:rgba(255,122,89,.3)}
+.kanal-etiket.et-trendyol{background:rgba(242,122,26,.15);color:#c45904;border-color:rgba(242,122,26,.3)}
+.kanal-etiket.et-hepsiburada{background:rgba(255,96,0,.14);color:#b84500;border-color:rgba(255,96,0,.28)}
+.kanal-etiket.et-n11{background:rgba(229,25,55,.12);color:#b8112a;border-color:rgba(229,25,55,.25)}
+.kanal-etiket.et-pazarama,.kanal-etiket.et-pttavm{background:rgba(57,73,171,.12);color:#283593;border-color:rgba(57,73,171,.25)}
+.kanal-etiket.et-amazon{background:rgba(255,153,0,.16);color:#9e5f00;border-color:rgba(255,153,0,.32)}
+.kanal-etiket.et-ozon,.kanal-etiket.et-temu{background:rgba(0,91,255,.12);color:#0044bf;border-color:rgba(0,91,255,.25)}
+.kanal-etiket.et-seo,.kanal-etiket.et-blog,.kanal-etiket.et-nidazeytin{background:rgba(46,125,50,.13);color:#1b5e20;border-color:rgba(46,125,50,.26)}
+.kanal-etiket.et-finans{background:rgba(183,129,3,.14);color:#7a5600;border-color:rgba(183,129,3,.28)}
+.kanal-etiket.et-stok{background:rgba(85,139,47,.14);color:#33691e;border-color:rgba(85,139,47,.28)}
+
+.takvim-bolum-baslik{display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(59,52,44,.08)}
+.takvim-bolum-baslik h3{font-family:"Space Grotesk",sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+
+.takvim-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:14px}
+.takvim-kart{background:rgba(255,255,255,.82);border:1px solid rgba(59,52,44,.1);border-radius:14px;padding:15px 16px;display:flex;flex-direction:column;gap:10px;transition:transform .15s,box-shadow .15s;position:relative}
+.takvim-kart:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(90,70,50,.09)}
+.takvim-kart.yapilacak{border-left:4px solid var(--mercan)}
+.takvim-kart.calisiyor{border-left:4px solid #1976d2;background:rgba(227,242,253,.55)}
+.takvim-kart.yapildi{border-left:4px solid #2e7d32}
+.takvim-kart.hata{border-left:4px solid #d32f2f}
+
+.takvim-kart-ust{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}
+.takvim-zaman{font-family:"Space Grotesk",sans-serif;font-weight:600;color:var(--murekkep);display:flex;align-items:center;gap:6px}
+.takvim-tekrar{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(59,52,44,.07);color:var(--soluk)}
+.takvim-durum-rozet{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.takvim-durum-rozet.yapilacak{background:rgba(255,122,89,.15);color:var(--mercan-k)}
+.takvim-durum-rozet.calisiyor{background:rgba(25,118,210,.15);color:#1565c0}
+.takvim-durum-rozet.yapildi{background:rgba(46,125,50,.14);color:#2e7d32}
+.takvim-durum-rozet.hata{background:rgba(211,47,47,.14);color:#c62828}
+
+.takvim-kart-ajan{display:flex;align-items:center;gap:8px}
+.takvim-kart-ajan b{font-size:14px;font-weight:700;line-height:1.3}
+.takvim-kart-ajan small{font-size:11.5px;color:var(--soluk);display:block}
+.takvim-kart-ozet{font-size:12.5px;line-height:1.45;color:#52473c;background:rgba(250,245,237,.75);padding:8px 10px;border-radius:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.takvim-kart-etiketler{display:flex;gap:5px;flex-wrap:wrap}
+.takvim-kart-alt{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto;padding-top:6px;border-top:1px solid rgba(59,52,44,.06);flex-wrap:wrap}
+.takvim-aksiyonlar{display:flex;gap:6px;flex-wrap:wrap}
+.takvim-btn{font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:8px;background:#fff;border:1px solid rgba(59,52,44,.14);color:var(--murekkep);cursor:pointer;transition:all .15s}
+.takvim-btn:hover{background:var(--murekkep);color:#fff;border-color:var(--murekkep)}
+.takvim-btn.calistir{background:var(--mercan);color:#fff;border-color:var(--mercan)}
+.takvim-btn.calistir:hover{background:var(--mercan-k)}
+.takvim-btn.rapor{background:rgba(46,125,50,.12);color:#1b5e20;border-color:rgba(46,125,50,.28)}
+.takvim-btn.rapor:hover{background:#2e7d32;color:#fff}
+.takvim-btn.yayin{background:rgba(24,119,242,.1);color:#1259b8;border-color:rgba(24,119,242,.25)}
+.takvim-btn.yayin.aktif{background:#1877f2;color:#fff;border-color:#1877f2}
+
+/* Haftalık Takvim 7 Sütun Izgara */
+.haftalik-izgara{display:grid;grid-template-columns:repeat(7,minmax(160px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.hafta-sutun{background:rgba(255,255,255,.65);border:1px solid rgba(59,52,44,.08);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:260px}
+.hafta-sutun.bugun{background:rgba(255,248,240,.92);border-color:var(--mercan);box-shadow:0 4px 14px rgba(255,122,89,.12)}
+.hafta-sutun-baslik{font-family:"Space Grotesk",sans-serif;font-size:13px;font-weight:700;padding-bottom:6px;border-bottom:1px solid rgba(59,52,44,.08);display:flex;justify-content:space-between;align-items:center}
+.hafta-mini-kart{background:#fff;border:1px solid rgba(59,52,44,.08);border-left:3px solid var(--mercan);border-radius:8px;padding:8px;font-size:11.5px;display:flex;flex-direction:column;gap:5px;cursor:pointer;transition:transform .12s}
+.hafta-mini-kart:hover{transform:scale(1.02)}
+.hafta-mini-kart.yapildi{border-left-color:#2e7d32;opacity:.9}
+
 </style>
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
@@ -347,6 +425,7 @@ td.sayi,th.sayi{text-align:right}
     <button data-sekme="maliyet">Maliyet</button>
     <button data-sekme="dosyalar">Dosyalar</button>
     <button data-sekme="raporlar">Raporlar</button>
+    <button data-sekme="takvim">📅 Takvim</button>
   </nav>
   <div class="bosluk"></div>
   <div class="hap"><span class="nokta" id="aktifNokta"></span><b id="aktif">0</b> ajan çalışıyor</div>
@@ -388,6 +467,39 @@ td.sayi,th.sayi{text-align:right}
   </div>
   <div class="rapor-govde" id="raporGovde"></div>
 </aside>
+<div class="hafiza-modal" id="takvimModal">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <h3>📅 Takvime Yeni Otonom Görev Planla</h3>
+    <button class="rapor-kapat" id="takvimModalKapat">×</button>
+  </div>
+  <label style="font-size:11.5px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Görev Başlığı:</label>
+  <input id="tkvBaslik" style="font:inherit;font-size:13.5px;padding:9px 12px;border:1px solid rgba(59,52,44,.15);border-radius:10px;outline:none;" placeholder="Örn: Cuma Instagram Reels & Kampanya Paylaşımı">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <label style="font-size:11.5px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Sorumlu Ajan:</label>
+      <select id="tkvAjan" style="font:inherit;font-size:13px;padding:8px 10px;border:1px solid rgba(59,52,44,.15);border-radius:10px;"></select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <label style="font-size:11.5px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Tekrar Sıklığı:</label>
+      <select id="tkvTekrar" style="font:inherit;font-size:13px;padding:8px 10px;border:1px solid rgba(59,52,44,.15);border-radius:10px;">
+        <option value="haftalik">🔁 Her Hafta</option>
+        <option value="gunluk">🔁 Her Gün</option>
+        <option value="tek_sefer">📍 Tek Seferlik</option>
+      </select>
+    </div>
+  </div>
+  <label style="font-size:11.5px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Planlanan Tarih & Saat:</label>
+  <input id="tkvTarihSaat" type="datetime-local" style="font:inherit;font-size:13.5px;padding:8px 12px;border:1px solid rgba(59,52,44,.15);border-radius:10px;outline:none;">
+  <label style="font-size:11.5px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Kanal Etiketleri (Seçmek için tıklayın):</label>
+  <div id="tkvEtiketSecici" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+  <label style="font-size:11.5px;font-weight:600;color:var(--soluk);text-transform:uppercase;">Görev Talimatı (Prompt):</label>
+  <textarea id="tkvPrompt" placeholder="Ajan bu saat geldiğinde ne üretsin? (Boş bırakılırsa başlığa göre otomatik oluşturulur)"></textarea>
+  <div class="hafiza-modal-butonlar">
+    <button class="dugme" id="takvimModalIptal">İptal</button>
+    <button class="hafiza-btn-ekle" id="takvimModalKaydet">📅 Takvime Ekle</button>
+  </div>
+</div>
+
 <div class="hafiza-modal" id="hafizaModal">
   <div style="display:flex;justify-content:space-between;align-items:center;">
     <h3>➕ Yeni Kural / Tercih Ekle</h3>
@@ -1908,7 +2020,7 @@ async function sekmeAc(ad) {
   document.querySelectorAll('#sekmeler button').forEach(b => b.classList.toggle('secili', b.dataset.sekme === ad));
   if (ad === 'ofis') { sayfa.classList.remove('acik'); return; }
   panelKapat();
-  const icerik = ad === 'odalar' ? odalarSayfasi() : ad === 'hafiza' ? await hafizaSayfasi() : ad === 'dosyalar' ? await dosyalarSayfasi() : ad === 'raporlar' ? await raporlarSayfasi() : maliyetSayfasi();
+  const icerik = ad === 'odalar' ? odalarSayfasi() : ad === 'hafiza' ? await hafizaSayfasi() : ad === 'dosyalar' ? await dosyalarSayfasi() : ad === 'raporlar' ? await raporlarSayfasi() : ad === 'takvim' ? await takvimSayfasi() : maliyetSayfasi();
   if (aktifSekme !== ad) return;
   sayfa.replaceChildren(...icerik); sayfa.classList.add('acik');
 }
@@ -2522,6 +2634,459 @@ $('raporKopyalaBtn').onclick = () => {
 };
 
 let seciliRaporFiltre = 'tumu';
+
+/* ---------- Otonom Takvim & Görev Planlama Merkezi ---------- */
+let seciliTakvimDurum = 'tumu';
+let seciliTakvimEtiket = 'tumu';
+let seciliTakvimGorunum = 'liste'; // 'liste' veya 'haftalik'
+let modalSeciliEtiketler = new Set(['#Instagram', '#Facebook']);
+
+function etiketSinifi(etiket) {
+  const temiz = String(etiket || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (temiz.includes('instagram')) return 'et-instagram';
+  if (temiz.includes('facebook')) return 'et-facebook';
+  if (temiz.includes('reels')) return 'et-reels';
+  if (temiz.includes('linkedin')) return 'et-linkedin';
+  if (temiz.includes('b2b')) return 'et-b2b';
+  if (temiz.includes('metaads')) return 'et-metaads';
+  if (temiz.includes('trendyol')) return 'et-trendyol';
+  if (temiz.includes('hepsiburada')) return 'et-hepsiburada';
+  if (temiz.includes('n11')) return 'et-n11';
+  if (temiz.includes('pazarama')) return 'et-pazarama';
+  if (temiz.includes('pttavm')) return 'et-pttavm';
+  if (temiz.includes('amazon')) return 'et-amazon';
+  if (temiz.includes('ozon')) return 'et-ozon';
+  if (temiz.includes('temu')) return 'et-temu';
+  if (temiz.includes('seo') || temiz.includes('blog') || temiz.includes('nidazeytin')) return 'et-seo';
+  if (temiz.includes('finans')) return 'et-finans';
+  if (temiz.includes('stok')) return 'et-stok';
+  return '';
+}
+
+function tekrarMetni(t) {
+  if (t === 'gunluk') return '🔁 Her Gün';
+  if (t === 'haftalik') return '🔁 Her Hafta';
+  return '📍 Tek Sefer';
+}
+
+function gunAdiBul(tarihSaatStr) {
+  const gunler = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+  try {
+    const dt = new Date(String(tarihSaatStr).replace(' ', 'T'));
+    if (!isNaN(dt.getTime())) {
+      return gunler[dt.getDay()] + ' · ' + String(tarihSaatStr).slice(0, 16);
+    }
+  } catch {}
+  return tarihSaatStr || '-';
+}
+
+async function takvimSayfasi() {
+  let veri = { ayarlar: { otonom_aktif: true }, istatistik: {}, etiketler: {}, yapilacaklar: [], yapilanlar: [], gorevler: [] };
+  try {
+    veri = await getJSON('/api/takvim');
+  } catch (err) {
+    return [el('h2', null, '📅 Otonom Takvim'), el('p', 'alt', 'Takvim verisi alınamadı: ' + err.message)];
+  }
+
+  const ayarlar = veri.ayarlar || {};
+  const ist = veri.istatistik || {};
+  const tumGorevler = veri.gorevler || [];
+
+  const h2 = el('h2', null, '📅 Otonom İş Takvimi & Kanal Planlayıcı');
+  const p = el('p', 'alt', 'Geçmişte tamamlanan (Yapıldı) ve gelecekte otomatik çalışacak (Yapılacak) tüm ajan görevlerini #Instagram, #Facebook, #Trendyol gibi etiketlerle takip edin.');
+
+  // 1. Üst Otonom Kontrol & KPI Barı
+  const ustBar = el('div', 'takvim-ust-bar');
+  const salterKutu = el('div', 'otonom-salter-kutu');
+  const salterBtn = el('button', 'otonom-salter ' + (ayarlar.otonom_aktif ? 'aktif' : 'pasif'),
+    ayarlar.otonom_aktif ? '🤖 Otonom Mod: AKTİF (7/24)' : '⏸ Otonom Mod: DURAKLATILDI');
+  salterBtn.onclick = async () => {
+    SES.tik();
+    const yeniDurum = !ayarlar.otonom_aktif;
+    await postJSON('/api/otonom-ayar', { otonom_aktif: yeniDurum });
+    tost(yeniDurum ? 'Otonom Zamanlayıcı aktif edildi' : 'Otonom Zamanlayıcı duraklatıldı');
+    sekmeAc('takvim');
+  };
+  salterKutu.append(salterBtn);
+
+  const kpiGrup = el('div', 'takvim-kpi-grup');
+  [
+    ['⏳ Yapılacak', ist.yapilacak || 0],
+    ['⚡ Çalışıyor', ist.calisiyor || 0],
+    ['✅ Yapıldı', ist.yapildi || 0],
+    ['🚀 Yayınlandı', ist.yayinlandi || 0]
+  ].forEach(([etiket, sayi]) => {
+    const k = el('div', 'takvim-kpi');
+    k.append(el('b', null, String(sayi)), el('span', null, etiket));
+    kpiGrup.append(k);
+  });
+
+  const sagKontrol = el('div', 'otonom-salter-kutu');
+  const gorunumBtn = el('button', 'dugme', seciliTakvimGorunum === 'liste' ? '📅 Haftalık Izgara Görünümü' : '📋 Liste (Geçmiş & Gelecek)');
+  gorunumBtn.onclick = () => {
+    SES.tik();
+    seciliTakvimGorunum = seciliTakvimGorunum === 'liste' ? 'haftalik' : 'liste';
+    sekmeAc('takvim');
+  };
+  const yeniGorevBtn = el('button', 'hafiza-btn-ekle', '➕ Takvime Görev Planla');
+  yeniGorevBtn.onclick = () => takvimModalAc();
+  sagKontrol.append(gorunumBtn, yeniGorevBtn);
+
+  ustBar.append(salterKutu, kpiGrup, sagKontrol);
+
+  // 2. Durum Filtre Butonları
+  const filtreSatir = el('div', 'takvim-filtre-satir');
+  const durumCubuk = el('div', 'takvim-durum-cubuk');
+  [
+    ['tumu', `Tümü (${tumGorevler.length})`],
+    ['yapilacak', `⏳ Yapılacak (${ist.yapilacak || 0})`],
+    ['yapildi', `✅ Yapıldı (${ist.yapildi || 0})`],
+    ['yayinlandi', `🚀 Yayınlandı (${ist.yayinlandi || 0})`]
+  ].forEach(([kod, ad]) => {
+    const b = el('button', 'filtre-btn' + (seciliTakvimDurum === kod ? ' secili' : ''), ad);
+    b.onclick = () => {
+      SES.tik();
+      seciliTakvimDurum = kod;
+      icerikCiz();
+      durumCubuk.querySelectorAll('button').forEach((x, idx) => x.classList.toggle('secili', ['tumu', 'yapilacak', 'yapildi', 'yayinlandi'][idx] === kod));
+    };
+    durumCubuk.append(b);
+  });
+  filtreSatir.append(durumCubuk);
+
+  // 3. Kanal Etiketleri Barı (#Instagram, #Facebook, #Trendyol vb.)
+  const etiketCubuk = el('div', 'takvim-etiket-cubuk');
+  const tumEtiketler = ['tumu', ...(veri.kanal_listesi || [
+    '#Instagram', '#Facebook', '#Reels', '#LinkedIn', '#B2B', '#MetaAds',
+    '#Trendyol', '#Hepsiburada', '#N11', '#Pazarama', '#PttAVM',
+    '#Amazon', '#Ozon', '#Temu', '#SEO', '#nidazeytin.com', '#Blog', '#Finans', '#Stok'
+  ])];
+
+  tumEtiketler.forEach(et => {
+    const say = et === 'tumu' ? tumGorevler.length : (veri.etiketler?.[et] || 0);
+    if (et !== 'tumu' && say === 0 && !['#Instagram', '#Facebook', '#Trendyol', '#Hepsiburada', '#LinkedIn', '#SEO', '#Amazon', '#Finans', '#Stok'].includes(et)) return;
+    const rozet = el('button', 'kanal-etiket ' + (et === 'tumu' ? '' : etiketSinifi(et)) + (seciliTakvimEtiket === et ? ' secili' : ''),
+      et === 'tumu' ? '🏷 Tüm Kanallar' : `${et} (${say})`);
+    rozet.onclick = () => {
+      SES.tik();
+      seciliTakvimEtiket = et;
+      etiketCubuk.querySelectorAll('.kanal-etiket').forEach(k => k.classList.remove('secili'));
+      rozet.classList.add('secili');
+      icerikCiz();
+    };
+    etiketCubuk.append(rozet);
+  });
+
+  // 4. Görev Kartları veya Haftalık Takvim Alanı
+  const anaKapsayici = el('div');
+
+  function gorevKartOlustur(g) {
+    const a = ajanBul(g.ajan);
+    const durum = g.durum || 'yapilacak';
+    const kart = el('div', 'takvim-kart ' + durum);
+
+    // Üst: Tarih/Saat + Tekrar + Durum Rozeti
+    const ust = el('div', 'takvim-kart-ust');
+    const zamanSol = el('div', 'takvim-zaman');
+    zamanSol.append(
+      el('span', null, '🕒 ' + gunAdiBul(g.tarih_saat)),
+      el('span', 'takvim-tekrar', tekrarMetni(g.tekrar))
+    );
+    const durumYazi = durum === 'yapilacak' ? '⏳ Yapılacak' : durum === 'calisiyor' ? '⚡ Çalışıyor' : durum === 'yapildi' ? (g.yayinlandi ? '🚀 Yayınlandı' : '✅ Yapıldı') : '❌ Hata';
+    const dRozet = el('span', 'takvim-durum-rozet ' + durum, durumYazi);
+    ust.append(zamanSol, dRozet);
+
+    // Orta: Ajan & Başlık
+    const ajSatir = el('div', 'takvim-kart-ajan');
+    ajSatir.append(
+      avatar(g.ajan),
+      el('div', null, [
+        el('b', null, g.baslik || 'Görev'),
+        el('small', null, (a?.ad || g.ajan) + (g.kosu_id ? ' · Rapor hazır' : ''))
+      ])
+    );
+
+    // Etiketler
+    const etKutu = el('div', 'takvim-kart-etiketler');
+    (g.etiketler || []).forEach(et => {
+      const sp = el('span', 'kanal-etiket ' + etiketSinifi(et), et);
+      sp.onclick = (e) => {
+        e.stopPropagation();
+        seciliTakvimEtiket = et;
+        icerikCiz();
+      };
+      etKutu.append(sp);
+    });
+
+    // Özet veya Prompt önizleme
+    const metinOnizleme = g.durum === 'yapildi' && g.ozet ? temizMetin(g.ozet) : temizMetin(g.prompt || '');
+    const ozetDiv = metinOnizleme ? el('div', 'takvim-kart-ozet', kisa(metinOnizleme, 160)) : null;
+
+    // Alt Aksiyonlar
+    const alt = el('div', 'takvim-kart-alt');
+    const aks = el('div', 'takvim-aksiyonlar');
+
+    if (durum === 'yapilacak' || durum === 'hata') {
+      const btnSimdi = el('button', 'takvim-btn calistir', '▶ Şimdi Çalıştır');
+      btnSimdi.onclick = async () => {
+        SES.tik();
+        btnSimdi.disabled = true;
+        btnSimdi.textContent = '⏳ Başlatılıyor…';
+        const { durum: kod, veri: yanit } = await postJSON('/api/takvim-simdi-calistir', { id: g.id });
+        if (kod === 200) {
+          tost((a?.ad || g.ajan) + ' göreve başladı!');
+          sekmeAc('takvim');
+        } else {
+          tost('Hata: ' + (yanit.hata || 'Başlatılamadı'));
+          btnSimdi.disabled = false;
+          btnSimdi.textContent = '▶ Şimdi Çalıştır';
+        }
+      };
+
+      const btnYapildi = el('button', 'takvim-btn', '✓ Yapıldı İşaretle');
+      btnYapildi.onclick = async () => {
+        SES.tik();
+        await postJSON('/api/takvim-guncelle', { id: g.id, durum: 'yapildi' });
+        tost('Görev yapıldı olarak işaretlendi');
+        sekmeAc('takvim');
+      };
+
+      aks.append(btnSimdi, btnYapildi);
+    }
+
+    if (g.kosu_id) {
+      const btnRapor = el('button', 'takvim-btn rapor', '📄 Raporu Oku ↗');
+      btnRapor.onclick = () => {
+        SES.tik();
+        raporGoster(g.kosu_id, g.ajan);
+      };
+      aks.append(btnRapor);
+    }
+
+    if (durum === 'yapildi') {
+      const btnYayin = el('button', 'takvim-btn yayin' + (g.yayinlandi ? ' aktif' : ''),
+        g.yayinlandi ? '🚀 Yayınlandı ✓' : '🚀 Yayınlandı İşaretle');
+      btnYayin.onclick = async () => {
+        SES.tik();
+        await postJSON('/api/takvim-guncelle', { id: g.id, yayinlandi: !g.yayinlandi });
+        tost(!g.yayinlandi ? 'İçerik/görev yayınlandı olarak işaretlendi' : 'Yayınlandı işareti kaldırıldı');
+        sekmeAc('takvim');
+      };
+      aks.append(btnYayin);
+    }
+
+    const btnSil = el('button', 'takvim-btn', '🗑');
+    btnSil.title = 'Görevi Sil';
+    btnSil.onclick = async () => {
+      if (confirm(`"${g.baslik}" görevini takvimden silmek istediğinize emin misiniz?`)) {
+        await postJSON('/api/takvim-sil', { id: g.id });
+        tost('Görev silindi');
+        sekmeAc('takvim');
+      }
+    };
+
+    alt.append(aks, btnSil);
+    kart.append(ust, ajSatir, etKutu);
+    if (ozetDiv) kart.append(ozetDiv);
+    kart.append(alt);
+    return kart;
+  }
+
+  function icerikCiz() {
+    anaKapsayici.replaceChildren();
+
+    const filtrele = (liste) => liste.filter(g => {
+      if (seciliTakvimDurum === 'yapilacak' && g.durum !== 'yapilacak' && g.durum !== 'calisiyor') return false;
+      if (seciliTakvimDurum === 'yapildi' && g.durum !== 'yapildi') return false;
+      if (seciliTakvimDurum === 'yayinlandi' && !g.yayinlandi) return false;
+      if (seciliTakvimEtiket !== 'tumu') {
+        const etler = (g.etiketler || []).map(x => x.toLowerCase());
+        if (!etler.includes(seciliTakvimEtiket.toLowerCase())) return false;
+      }
+      return true;
+    });
+
+    if (seciliTakvimGorunum === 'haftalik') {
+      // 7 Günlük Haftalık Takvim Izgarası
+      const iz = el('div', 'haftalik-izgara');
+      const gunAdlari = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
+      const bugunIdx = (new Date().getDay() + 6) % 7; // 0=Pzt .. 6=Paz
+      const tumFiltreli = filtrele(tumGorevler);
+
+      gunAdlari.forEach((gAdi, gIdx) => {
+        const sutun = el('div', 'hafta-sutun' + (gIdx === bugunIdx ? ' bugun' : ''));
+        const bas = el('div', 'hafta-sutun-baslik');
+        bas.append(el('span', null, gAdi), gIdx === bugunIdx ? el('span', 'incele-rozeti', 'Bugün') : el('span'));
+        sutun.append(bas);
+
+        const gunGorevleri = tumFiltreli.filter(g => {
+          if (g.tekrar === 'gunluk' && g.durum === 'yapilacak') return true;
+          try {
+            const dt = new Date(String(g.tarih_saat).replace(' ', 'T'));
+            const w = (dt.getDay() + 6) % 7;
+            return w === gIdx;
+          } catch {
+            return false;
+          }
+        });
+
+        if (!gunGorevleri.length) {
+          sutun.append(el('div', 'hafiza-bos', 'Planlı iş yok'));
+        } else {
+          gunGorevleri.forEach(g => {
+            const mk = el('div', 'hafta-mini-kart ' + (g.durum || ''));
+            const saat = String(g.tarih_saat || '').split(' ')[1] || '10:00';
+            mk.append(
+              el('div', null, [
+                el('b', null, `${saat} · ${g.durum === 'yapildi' ? '✅' : '⏳'} `),
+                el('span', null, kisa(g.baslik, 42))
+              ]),
+              el('small', null, ajanBul(g.ajan)?.ad || g.ajan)
+            );
+            const etMini = el('div', 'takvim-kart-etiketler');
+            (g.etiketler || []).slice(0, 2).forEach(e => etMini.append(el('span', 'kanal-etiket ' + etiketSinifi(e), e)));
+            mk.append(etMini);
+            mk.onclick = () => {
+              if (g.kosu_id) raporGoster(g.kosu_id, g.ajan);
+              else {
+                seciliTakvimGorunum = 'liste';
+                sekmeAc('takvim');
+              }
+            };
+            sutun.append(mk);
+          });
+        }
+        iz.append(sutun);
+      });
+
+      anaKapsayici.append(iz);
+      return;
+    }
+
+    // Liste Görünümü: Gelecek (Yapılacaklar) ve Geçmiş (Yapılanlar)
+    const gelecekListe = filtrele(veri.yapilacaklar || []);
+    const gecmisListe = filtrele(veri.yapilanlar || []);
+
+    if (seciliTakvimDurum === 'tumu' || seciliTakvimDurum === 'yapilacak') {
+      const bGelecek = el('div', 'takvim-bolum-baslik');
+      bGelecek.append(
+        el('h3', null, `⏩ Gelecek Planı — Yapılacak Otonom Görevler (${gelecekListe.length})`),
+        el('small', null, 'Zamanı geldiğinde otonom motor tarafından otomatik başlatılır')
+      );
+      const izGelecek = el('div', 'takvim-liste');
+      if (!gelecekListe.length) {
+        izGelecek.append(el('div', 'hafiza-bos', 'Seçili filtrede gelecek planlı görev yok. Yukarıdan "+ Takvime Görev Planla" ile ekleyebilirsiniz.'));
+      } else {
+        gelecekListe.forEach(g => izGelecek.append(gorevKartOlustur(g)));
+      }
+      anaKapsayici.append(bGelecek, izGelecek);
+    }
+
+    if (seciliTakvimDurum === 'tumu' || seciliTakvimDurum === 'yapildi' || seciliTakvimDurum === 'yayinlandi') {
+      const bGecmis = el('div', 'takvim-bolum-baslik');
+      bGecmis.append(
+        el('h3', null, `⏪ Geçmiş İşler — Tamamlanan Görevler & Çıktılar (${gecmisListe.length})`),
+        el('small', null, 'Raporu okumak için "Raporu Oku" butonuna tıklayın')
+      );
+      const izGecmis = el('div', 'takvim-liste');
+      if (!gecmisListe.length) {
+        izGecmis.append(el('div', 'hafiza-bos', 'Seçili filtrede tamamlanmış geçmiş görev bulunamadı.'));
+      } else {
+        gecmisListe.forEach(g => izGecmis.append(gorevKartOlustur(g)));
+      }
+      anaKapsayici.append(bGecmis, izGecmis);
+    }
+  }
+
+  icerikCiz();
+
+  return [h2, p, ustBar, filtreSatir, etiketCubuk, anaKapsayici];
+}
+
+function takvimModalAc() {
+  const modal = $('takvimModal');
+  const perde = $('raporPerde');
+  const sel = $('tkvAjan');
+  const dtInput = $('tkvTarihSaat');
+  const etKutu = $('tkvEtiketSecici');
+
+  sel.replaceChildren();
+  AJANLAR.filter(a => a.id !== 'ceo').forEach(a => {
+    const opt = el('option', null, `${a.ad} (${a.id})`);
+    opt.value = a.id;
+    sel.append(opt);
+  });
+
+  // Varsayılan tarih: yarın 10:00
+  const yarin = new Date(Date.now() + 3600 * 1000 * 2);
+  const pad = n => String(n).padStart(2, '0');
+  dtInput.value = `${yarin.getFullYear()}-${pad(yarin.getMonth() + 1)}-${pad(yarin.getDate())}T${pad(yarin.getHours())}:00`;
+
+  const populerEtiketler = [
+    '#Instagram', '#Facebook', '#Reels', '#LinkedIn', '#B2B', '#MetaAds',
+    '#Trendyol', '#Hepsiburada', '#N11', '#PttAVM', '#Amazon', '#Ozon', '#Temu',
+    '#SEO', '#nidazeytin.com', '#Blog', '#Finans', '#Stok'
+  ];
+
+  function etiketCiz() {
+    etKutu.replaceChildren();
+    populerEtiketler.forEach(et => {
+      const seciliMi = modalSeciliEtiketler.has(et);
+      const b = el('button', 'kanal-etiket ' + etiketSinifi(et) + (seciliMi ? ' secili' : ''), et);
+      b.type = 'button';
+      b.onclick = () => {
+        if (modalSeciliEtiketler.has(et)) modalSeciliEtiketler.delete(et);
+        else modalSeciliEtiketler.add(et);
+        etiketCiz();
+      };
+      etKutu.append(b);
+    });
+  }
+  etiketCiz();
+
+  $('tkvBaslik').value = '';
+  $('tkvPrompt').value = '';
+  perde.classList.add('acik');
+  modal.classList.add('acik');
+}
+
+function takvimModalKapat() {
+  $('takvimModal')?.classList.remove('acik');
+  $('raporPerde')?.classList.remove('acik');
+}
+
+$('takvimModalKapat').onclick = takvimModalKapat;
+$('takvimModalIptal').onclick = takvimModalKapat;
+$('takvimModalKaydet').onclick = async () => {
+  const baslik = $('tkvBaslik').value.trim();
+  const ajan = $('tkvAjan').value;
+  const tekrar = $('tkvTekrar').value;
+  const tarih_saat = $('tkvTarihSaat').value;
+  const prompt = $('tkvPrompt').value.trim();
+
+  if (!baslik) {
+    tost('Lütfen görev başlığı girin');
+    return;
+  }
+
+  const { durum, veri } = await postJSON('/api/takvim-ekle', {
+    baslik,
+    ajan,
+    tekrar,
+    tarih_saat,
+    etiketler: [...modalSeciliEtiketler],
+    prompt
+  });
+
+  if (durum === 200) {
+    takvimModalKapat();
+    tost('Görev takvime eklendi');
+    if (aktifSekme === 'takvim') sekmeAc('takvim');
+  } else {
+    tost('Hata: ' + (veri.hata || 'Eklenemedi'));
+  }
+};
+
 async function raporlarSayfasi() {
   let data = { raporlar: [] };
   try {

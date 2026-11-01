@@ -327,6 +327,11 @@ def bitir(ajan, baglam, sonuc, hata, baslangic, log_yolu, cikti_dizini):
     print(f"\n■ bitti · {sure} sn · maliyet_usd={olay['maliyet_usd']} · {olay['cikti']}", flush=True)
     if eklenen:
         print(f"  hafızaya eklendi: {eklenen}", flush=True)
+    try:
+        import otonom_takvim
+        otonom_takvim.gecmis_kosulari_senkronla()
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":
