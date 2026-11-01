@@ -1895,7 +1895,7 @@ async function dosyalarSayfasi() {
         SES.bitti();
         tost('SoftTR XML: ' + data.xml.toplam + ' ürün güncellendi!');
       } else {
-        tost('XML senkronizasyon uyarısı');
+        tost('XML uyarısı: ' + (data.xml?.mesaj || data.hata || 'XML alınamadı'));
       }
     } catch (err) {
       tost('Hata: ' + err.message);

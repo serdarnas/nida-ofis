@@ -561,6 +561,9 @@ class Isleyici(SimpleHTTPRequestHandler):
                 "seo": seo_durum
             })
 
+        if yol in ("/api/senkronize", "/api/veri-senkronize"):
+            return self._json(200, veri_senkron.senkronize_et())
+
         if yol == "/api/seo-guncelle":
             try:
                 import seo_guncelleyici
