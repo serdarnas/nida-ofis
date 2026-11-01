@@ -394,6 +394,130 @@ def dosyalar_yaniti():
     return {"dosyalar": sonuc}
 
 
+def raporlar_listesi(ajan_filtre=None):
+    """cikti/ klasöründeki tüm raporların kronolojik listesi."""
+    cikti_dizini = ortak.CIKTI_DIZINI
+    os.makedirs(cikti_dizini, exist_ok=True)
+    raporlar = []
+    try:
+        for ajan_ad in os.listdir(cikti_dizini):
+            if ajan_filtre and ajan_ad != ajan_filtre:
+                continue
+            ajan_klasor = os.path.join(cikti_dizini, ajan_ad)
+            if not os.path.isdir(ajan_klasor):
+                continue
+            for dosya in os.listdir(ajan_klasor):
+                if not dosya.endswith(".md"):
+                    continue
+                tam_yol = os.path.join(ajan_klasor, dosya)
+                if not os.path.isfile(tam_yol):
+                    continue
+                try:
+                    st = os.stat(tam_yol)
+                    kosu_id = os.path.splitext(dosya)[0]
+                    arg_yolu = os.path.join(ortak.KOSU_DIZINI, f"{kosu_id}.arg.json")
+                    etiket, prompt, kaynak = "", "", ""
+                    if os.path.isfile(arg_yolu):
+                        try:
+                            with open(arg_yolu, "r", encoding="utf-8") as af:
+                                arg_data = json.load(af)
+                                etiket = arg_data.get("etiket") or ""
+                                prompt = arg_data.get("prompt") or ""
+                                kaynak = arg_data.get("kaynak") or ""
+                        except Exception:
+                            pass
+
+                    ozet_metin = ""
+                    try:
+                        with open(tam_yol, "r", encoding="utf-8") as f:
+                            ozet_metin = f.read(300).strip()
+                    except Exception:
+                        pass
+
+                    boyut = st.st_size
+                    boyut_str = f"{boyut} B" if boyut < 1024 else f"{boyut/1024:.1f} KB" if boyut < 1024*1024 else f"{boyut/(1024*1024):.1f} MB"
+                    tarih = datetime.fromtimestamp(st.st_mtime).strftime("%d.%m.%Y %H:%M")
+
+                    raporlar.append({
+                        "kosu_id": kosu_id,
+                        "ajan": ajan_ad,
+                        "dosya": dosya,
+                        "etiket": etiket or dosya,
+                        "prompt": prompt,
+                        "kaynak": kaynak,
+                        "ozet": ozet_metin,
+                        "boyut": boyut,
+                        "boyut_metin": boyut_str,
+                        "tarih": tarih,
+                        "ts": st.st_mtime,
+                        "indir_url": f"/api/cikti-indir?kosu_id={kosu_id}&ajan={ajan_ad}"
+                    })
+                except OSError:
+                    continue
+    except OSError:
+        pass
+
+    raporlar.sort(key=lambda x: x["ts"], reverse=True)
+    return {"raporlar": raporlar}
+
+
+def cikti_detay(kosu_id, ajan=None):
+    """Belirli bir koşunun detaylı çıktısı, prompt'u ve meta verileri."""
+    if not kosu_id:
+        return None
+    kosu_id = os.path.basename(kosu_id).replace(".md", "")
+    hedef_yol = None
+    bulunan_ajan = ajan
+
+    if ajan:
+        ajan = os.path.basename(ajan)
+        dene = os.path.join(ortak.CIKTI_DIZINI, ajan, f"{kosu_id}.md")
+        if os.path.isfile(dene):
+            hedef_yol = dene
+    if not hedef_yol and os.path.isdir(ortak.CIKTI_DIZINI):
+        for a in os.listdir(ortak.CIKTI_DIZINI):
+            dene = os.path.join(ortak.CIKTI_DIZINI, a, f"{kosu_id}.md")
+            if os.path.isfile(dene):
+                hedef_yol = dene
+                bulunan_ajan = a
+                break
+
+    if not hedef_yol or not os.path.isfile(hedef_yol):
+        return None
+
+    with open(hedef_yol, "r", encoding="utf-8") as f:
+        icerik = f.read()
+
+    arg_yolu = os.path.join(ortak.KOSU_DIZINI, f"{kosu_id}.arg.json")
+    etiket, prompt, kaynak = "", "", ""
+    if os.path.isfile(arg_yolu):
+        try:
+            with open(arg_yolu, "r", encoding="utf-8") as af:
+                adata = json.load(af)
+                etiket = adata.get("etiket") or ""
+                prompt = adata.get("prompt") or ""
+                kaynak = adata.get("kaynak") or ""
+        except Exception:
+            pass
+
+    st = os.stat(hedef_yol)
+    boyut = st.st_size
+    boyut_metin = f"{boyut} B" if boyut < 1024 else f"{boyut / 1024:.1f} KB"
+    return {
+        "kosu_id": kosu_id,
+        "ajan": bulunan_ajan,
+        "etiket": etiket,
+        "prompt": prompt,
+        "kaynak": kaynak,
+        "icerik": icerik,
+        "metin": icerik,
+        "boyut": boyut,
+        "boyut_metin": boyut_metin,
+        "tarih": datetime.fromtimestamp(st.st_mtime).strftime("%d.%m.%Y %H:%M"),
+        "indir_url": f"/api/cikti-indir?kosu_id={kosu_id}&ajan={bulunan_ajan}"
+    }
+
+
 # ---------- HTTP ----------
 
 class Isleyici(SimpleHTTPRequestHandler):
@@ -507,6 +631,37 @@ class Isleyici(SimpleHTTPRequestHandler):
             self.end_headers()
             with open(dosya_yolu, "rb") as f:
                 shutil.copyfileobj(f, self.wfile)
+            return
+        if yol.path == "/api/raporlar":
+            qs = parse_qs(yol.query)
+            ajan_filtre = (qs.get("ajan") or [None])[0]
+            return self._json(200, raporlar_listesi(ajan_filtre))
+        if yol.path == "/api/cikti":
+            qs = parse_qs(yol.query)
+            kosu_id = (qs.get("kosu_id") or [""])[0]
+            ajan = (qs.get("ajan") or [None])[0]
+            detay = cikti_detay(kosu_id, ajan)
+            if not detay:
+                return self._json(404, {"hata": "çıktı bulunamadı"})
+            return self._json(200, detay)
+        if yol.path == "/api/cikti-indir":
+            qs = parse_qs(yol.query)
+            kosu_id = (qs.get("kosu_id") or [""])[0]
+            ajan = (qs.get("ajan") or [None])[0]
+            detay = cikti_detay(kosu_id, ajan)
+            if not detay:
+                return self._json(404, {"hata": "çıktı bulunamadı"})
+            from urllib.parse import quote
+            fname = f"{detay['kosu_id']}.md"
+            safe_fname = quote(fname)
+            govde = detay["icerik"].encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "text/markdown; charset=utf-8")
+            self.send_header("Content-Length", str(len(govde)))
+            self.send_header("Content-Disposition", f'attachment; filename="{fname}"; filename*=UTF-8\'\'{safe_fname}')
+            self._cors()
+            self.end_headers()
+            self.wfile.write(govde)
             return
         if yol.path == "/api/olaylar":
             return self._sse(parse_qs(yol.query))
