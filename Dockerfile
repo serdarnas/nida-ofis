@@ -4,6 +4,7 @@ WORKDIR /app
 
 # tmux isteğe bağlı koşular için kurulur
 RUN apt-get update && apt-get install -y --no-install-recommends tmux git && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir openpyxl
 
 COPY . /app
 
