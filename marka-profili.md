@@ -44,3 +44,8 @@
 - **Sofralık Zeytin:** Edremit Çizik Yeşil Zeytin, Kırma Zeytin, Siyah Sele Zeytin, Gemlik tipi doğal fermente siyah zeytin, dolgulu/baharatlı gurme seriler.
 - **Doğal yan ürünler:** Geleneksel Edremit zeytinyağlı el yapımı sabunlar, zeytin yaprağı çayı ve gurme hediyelik kutular.
 - **Temel Mesajlar:** %100 saf Edremit Körfezi zeytini, analiz garantili düşük asit oranı, katkısız doğal fermantasyon, bahçeden sofraya izlenebilir üretim.
+
+## 5. Canlı Veri, Fiyat ve Ürün Kaynakları
+- **Canlı E-Ticaret Kataloğu & Perakende Fiyatları:** `veri/urun-fiyat-stok.md` (SoftTR Google XML Export akışından anlık ve periyodik olarak çekilir: 50+ ürün, güncel stok durumları, perakende satış fiyatları, barkod/SKU ve doğrudan ürün linkleri).
+- **Dahili Maliyet, Toptan & Taban Fiyat Listesi:** `veri/fiyat-listesi.csv` veya `veri/dahili-fiyat-listesi.md` (Pazaryeri komisyon, kargo baremi ve net kâr marjı hesaplarında bu dosyalar referans alınır).
+

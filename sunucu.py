@@ -21,6 +21,7 @@ import ortak  # noqa: E402
 import kopru  # noqa: E402
 import token_sayac  # noqa: E402
 import evren_istemci  # noqa: E402
+import veri_senkron  # noqa: E402
 
 HOST = os.environ.get("OFIS_HOST", "127.0.0.1")
 ILK_PORT = int(os.environ.get("OFIS_PORT") or os.environ.get("PORT") or "8796")
@@ -437,6 +438,8 @@ class Isleyici(SimpleHTTPRequestHandler):
             return self._json(200, evren_istemci.kota_sorgula())
         if yol.path == "/api/terminaller":
             return self._json(200, {"terminaller": KOPRU.liste()})
+        if yol.path in ("/api/senkronize", "/api/veri-senkronize"):
+            return self._json(200, veri_senkron.senkronize_et())
         if yol.path == "/api/olaylar":
             return self._sse(parse_qs(yol.query))
         if yol.path.startswith("/api/"):
@@ -553,6 +556,21 @@ def main():
     token_sayac.olaylardan_geri_kur(olaylari_oku())  # bugünkü eski koşuların usage'ı sayaçta yoksa ekle
     if evren_istemci.aktif_mi():
         threading.Thread(target=evren_istemci.sartlari_onayla, name="evren-terms", daemon=True).start()
+
+    def _periyodik_senkron():
+        try:
+            veri_senkron.senkronize_et()
+        except Exception as e:
+            sys.stderr.write(f"İlk senkronizasyon hatası: {e}\n")
+        while True:
+            time.sleep(7200)  # 2 saatte bir XML güncelle
+            try:
+                veri_senkron.senkronize_et()
+            except Exception as e:
+                sys.stderr.write(f"Periyodik senkronizasyon hatası: {e}\n")
+
+    threading.Thread(target=_periyodik_senkron, name="veri-senkron", daemon=True).start()
+
     sunucu, port = bos_port_ile_ac()
     with open(os.path.join(ortak.KOK, "port"), "w") as f:
         f.write(str(port))
