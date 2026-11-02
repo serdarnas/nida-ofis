@@ -1,0 +1,21 @@
+services:
+  nida-ofis:
+    build: .
+    container_name: nida-ofis
+    restart: unless-stopped
+    ports:
+      - "8796:8796"
+    environment:
+      - OFIS_HOST=0.0.0.0
+      - OFIS_PORT=8796
+      - OFIS_DATA_DIR=/app/data
+      - OFIS_IZINLI_HOST=*
+      - EVREN_API_KEY=${EVREN_API_KEY:-}
+      - OFIS_MOTOR=${OFIS_MOTOR:-evren}
+    volumes:
+      # Tüm çalışma verilerini (olaylar, hafıza, takvim, çıktılar, durum, dokümanlar) kalıcı diske bağlar
+      - nida_ofis_data:/app/data
+
+volumes:
+  nida_ofis_data:
+    name: nida_ofis_data

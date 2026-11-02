@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 
 import ortak
 
-TAKVIM_DOSYASI = os.path.join(ortak.KOK, "veri", "takvim.json")
+TAKVIM_DOSYASI = ortak.TAKVIM_DOSYASI
 TAKVIM_KILIDI = threading.Lock()
 
 # Kanal / Platform etiket tanımları ve renk kategorileri

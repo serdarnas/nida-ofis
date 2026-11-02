@@ -40,14 +40,67 @@ def dotenv_yukle():
 
 dotenv_yukle()
 
+# Kalıcı depolama kökü: OFIS_DATA_DIR veya DATA_DIR tanımlıysa orayı kullanır (Docker volume: /app/data).
+DATA_KOK = os.environ.get("OFIS_DATA_DIR") or os.environ.get("DATA_DIR")
+if DATA_KOK:
+    DATA_KOK = os.path.abspath(DATA_KOK)
+else:
+    DATA_KOK = KOK
+
 # Yapılandırma: ajanlar.example.json'ı ajanlar.json olarak kopyala (ajanlar.json .gitignore'dadır).
 AJANLAR_DOSYASI = os.environ.get("OFIS_AJANLAR", os.path.join(KOK, "ajanlar.json"))
 AJANLAR_ORNEK = os.path.join(KOK, "ajanlar.example.json")
-OLAYLAR = os.path.join(KOK, "olaylar.jsonl")
-DURUM_DIZINI = os.path.join(KOK, "durum")
-KOSU_DIZINI = os.path.join(KOK, "kosular")
-CIKTI_DIZINI = os.path.join(KOK, "cikti")
-HAFIZA_DIZINI = os.path.join(KOK, "hafiza")
+
+# Değişken çalışma verileri (Kalıcı Volume içinde yaşar)
+OLAYLAR = os.path.join(DATA_KOK, "olaylar.jsonl")
+DURUM_DIZINI = os.path.join(DATA_KOK, "durum")
+KOSU_DIZINI = os.path.join(DATA_KOK, "kosular")
+CIKTI_DIZINI = os.path.join(DATA_KOK, "cikti")
+HAFIZA_DIZINI = os.path.join(DATA_KOK, "hafiza")
+VERI_DIZINI = os.path.join(DATA_KOK, "veri")
+DOCS_DIZINI = os.path.join(DATA_KOK, "docs")
+TAKVIM_DOSYASI = os.path.join(VERI_DIZINI, "takvim.json")
+
+
+def veri_dizinlerini_hazirla():
+    """Tüm çalışma dizinlerini oluşturur; harici DATA_KOK varsa repo şablonlarını güvenle aktarır."""
+    for d in (DURUM_DIZINI, KOSU_DIZINI, CIKTI_DIZINI, HAFIZA_DIZINI, VERI_DIZINI, DOCS_DIZINI):
+        os.makedirs(d, exist_ok=True)
+
+    if DATA_KOK != KOK:
+        kaynak_veri = os.path.join(KOK, "veri")
+        if os.path.isdir(kaynak_veri):
+            for ad in os.listdir(kaynak_veri):
+                kaynak_dosya = os.path.join(kaynak_veri, ad)
+                hedef_dosya = os.path.join(VERI_DIZINI, ad)
+                if os.path.isfile(kaynak_dosya) and not os.path.exists(hedef_dosya):
+                    try:
+                        shutil.copy2(kaynak_dosya, hedef_dosya)
+                    except Exception:
+                        pass
+        kaynak_hafiza = os.path.join(KOK, "hafiza")
+        if os.path.isdir(kaynak_hafiza):
+            for ad in os.listdir(kaynak_hafiza):
+                kaynak_dosya = os.path.join(kaynak_hafiza, ad)
+                hedef_dosya = os.path.join(HAFIZA_DIZINI, ad)
+                if os.path.isfile(kaynak_dosya) and not os.path.exists(hedef_dosya):
+                    try:
+                        shutil.copy2(kaynak_dosya, hedef_dosya)
+                    except Exception:
+                        pass
+        kaynak_docs = os.path.join(KOK, "docs")
+        if os.path.isdir(kaynak_docs):
+            for ad in os.listdir(kaynak_docs):
+                kaynak_dosya = os.path.join(kaynak_docs, ad)
+                hedef_dosya = os.path.join(DOCS_DIZINI, ad)
+                if os.path.isfile(kaynak_dosya) and not os.path.exists(hedef_dosya):
+                    try:
+                        shutil.copy2(kaynak_dosya, hedef_dosya)
+                    except Exception:
+                        pass
+
+
+veri_dizinlerini_hazirla()
 
 MAKS_GIRDI = 4000
 MAKS_HAFIZA_EKI = 1200

@@ -8,9 +8,13 @@ RUN pip install --no-cache-dir openpyxl
 
 COPY . /app
 
-# Konteyner içinde dışarıdan erişim ve varsayılan port
+# Konteyner içinde dışarıdan erişim, varsayılan port ve kalıcı veri dizini
 ENV OFIS_HOST=0.0.0.0
 ENV OFIS_PORT=8796
+ENV OFIS_DATA_DIR=/app/data
+
+# Kalıcı depolama volume (redeploy'larda verilerin sıfırlanmasını önler)
+VOLUME ["/app/data"]
 
 EXPOSE 8796
 

@@ -20,7 +20,7 @@ import ortak  # noqa: E402
 import token_sayac  # noqa: E402
 import evren_istemci  # noqa: E402
 
-YALIN_DIZIN = os.path.join(ortak.KOK, "durum", "yalin-cwd")
+YALIN_DIZIN = os.path.join(ortak.DURUM_DIZINI, "yalin-cwd")
 BEKLEME_SN = int(os.environ.get("OFIS_PENCERE_BEKLE", "90"))
 HAFIZA_DESENI = re.compile(r"<hafiza_ekle>(.*?)</hafiza_ekle>", re.S)
 
@@ -149,13 +149,13 @@ def evren_ile_kos(ajan, gorev, baglam, log_yolu, cikti_dizini, sayac):
     hafiza_metni = hafiza_oku(ajan["id"])
     ortak.olay_yaz({**baglam, "tur": "ilerledi", "arac": "Read", "detay": f"file_path=hafiza/{ajan['id']}.md"})
 
-    katalog_yolu = os.path.join(ortak.KOK, "veri", "urun-fiyat-stok.md")
+    katalog_yolu = os.path.join(ortak.VERI_DIZINI, "urun-fiyat-stok.md")
     katalog_metni = dosya_guvenli_oku(katalog_yolu, maks=48000)
     if katalog_metni:
         ortak.olay_yaz({**baglam, "tur": "ilerledi", "arac": "Read", "detay": "file_path=veri/urun-fiyat-stok.md"})
         time.sleep(0.2)
 
-    dahili_fiyat_yolu = os.path.join(ortak.KOK, "veri", "dahili-fiyat-listesi.md")
+    dahili_fiyat_yolu = os.path.join(ortak.VERI_DIZINI, "dahili-fiyat-listesi.md")
     dahili_fiyat_metni = dosya_guvenli_oku(dahili_fiyat_yolu, maks=24000)
     if dahili_fiyat_metni:
         ortak.olay_yaz({**baglam, "tur": "ilerledi", "arac": "Read", "detay": "file_path=veri/dahili-fiyat-listesi.md"})

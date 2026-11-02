@@ -13,11 +13,13 @@ Bu modül:
 import os
 import shutil
 import openpyxl
+import ortak
 
-KOK = os.path.dirname(os.path.abspath(__file__))
-EXCEL_YOLU = os.path.join(KOK, "docs", "Ürünler_1793508054.xlsx")
-YEDEK_YOLU = os.path.join(KOK, "docs", "Ürünler_1793508054_orijinal.xlsx")
-GUNCEL_YOLU = os.path.join(KOK, "docs", "Urunler_SEO_Guncel.xlsx")
+KOK = ortak.KOK
+DOCS_DIZINI = ortak.DOCS_DIZINI
+EXCEL_YOLU = os.path.join(DOCS_DIZINI, "Ürünler_1793508054.xlsx")
+YEDEK_YOLU = os.path.join(DOCS_DIZINI, "Ürünler_1793508054_orijinal.xlsx")
+GUNCEL_YOLU = os.path.join(DOCS_DIZINI, "Urunler_SEO_Guncel.xlsx")
 
 
 def seo_metinlerini_uret(code, title):

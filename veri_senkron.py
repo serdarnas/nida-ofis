@@ -17,9 +17,11 @@ import xml.etree.ElementTree as ET
 import zipfile
 from datetime import datetime
 
-KOK = os.path.dirname(os.path.abspath(__file__))
-VERI_DIZINI = os.path.join(KOK, "veri")
-DOCS_DIZINI = os.path.join(KOK, "docs")
+import ortak
+
+KOK = ortak.KOK
+VERI_DIZINI = ortak.VERI_DIZINI
+DOCS_DIZINI = ortak.DOCS_DIZINI
 XML_URL = os.environ.get(
     "NIDA_XML_URL",
     "https://www.nidazeytin.com/xmlexport/export.php?id=7&source=softtr"
