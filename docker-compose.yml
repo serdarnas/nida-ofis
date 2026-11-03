@@ -8,6 +8,18 @@ services:
     environment:
       - OFIS_HOST=0.0.0.0
       - OFIS_PORT=8796
+      - TZ=Europe/Istanbul
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - SMTP_FROM=${SMTP_FROM:-}
+      - RAPOR_ALICI=${RAPOR_ALICI:-serdarnas@gmail.com}
+      - RAPOR_SABAH_SAAT=${RAPOR_SABAH_SAAT:-08:00}
+      - RAPOR_GUN_SONU_SAAT=${RAPOR_GUN_SONU_SAAT:-18:30}
+      - RAPOR_GOREV_MAILI=${RAPOR_GOREV_MAILI:-0}
+      - RAPOR_MAIL_AKTIF=${RAPOR_MAIL_AKTIF:-1}
+      - HF_TOKEN=${HF_TOKEN:-}
       - OFIS_DATA_DIR=/app/data
       - OFIS_IZINLI_HOST=*
       - EVREN_API_KEY=${EVREN_API_KEY:-}

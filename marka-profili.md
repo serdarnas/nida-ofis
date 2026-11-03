@@ -37,7 +37,8 @@
 
 ## 3. Sosyal Medya ve Kurumsal İletişim Kanalları
 1. **Facebook Resmi Sayfası:** https://www.facebook.com/profile.php?id=61588278569018 (Meta App ID: `1675669933795630` — API kimlik bilgileri `.env` içinde)
-2. **LinkedIn Kurumsal Sayfası:** https://www.linkedin.com/company/olive-edremit-zeytincilik (Client ID: `77dyyp7cu0z36l` — API kimlik bilgileri `.env` içinde)
+2. **Instagram:** {{@kullanici_adi — kullanıcıdan alınacak}} (hesap tipi Profesyonel olmalı; yayını kullanıcı elle yapar, ofis yalnız taslak üretir)
+3. **LinkedIn Kurumsal Sayfası:** https://www.linkedin.com/company/olive-edremit-zeytincilik (Client ID: `77dyyp7cu0z36l` — API kimlik bilgileri `.env` içinde)
 
 ## 4. Ürün Gamı ve Değer Önerisi
 - **Natürel Sızma Zeytinyağı:** Erken Hasat Soğuk Sıkım, Olgun Hasat, Özel Rezerv (Cam şişe 250ml, 500ml, 750ml, 1L ve 2L/3L/5L teneke ambalajlar).

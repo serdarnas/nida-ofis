@@ -305,6 +305,12 @@ def bitir(ajan, baglam, sonuc, hata, baslangic, log_yolu, cikti_dizini):
     basarili = bool(sonuc) and not sonuc.get("is_error") and not hata
     eklenen = hafizaya_ekle(ajan["id"], metin) if basarili else []
     temiz = HAFIZA_DESENI.sub("", metin).strip()
+    if basarili and temiz and ajan.get("denetim") == "instagram":
+        try:
+            import ig_denetim
+            temiz = temiz + "\n\n" + ig_denetim.denetle(temiz)
+        except Exception as e:  # denetim hatası çıktıyı asla kaybettirmez
+            temiz += f"\n\n(otomatik denetim çalışmadı: {type(e).__name__})"
     cikti_yolu = os.path.join(cikti_dizini, f"{baglam['kosu_id']}.md")
     with open(cikti_yolu, "w", encoding="utf-8") as f:
         f.write(temiz or f"(çıktı yok) {hata or ''}")

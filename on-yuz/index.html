@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Ajan Ofisi</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23ff7a59%22/%3E%3Crect x=%229%22 y=%2211%22 width=%2214%22 height=%2210%22 rx=%223%22 fill=%22%23fff7f2%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -406,6 +406,89 @@ td.sayi,th.sayi{text-align:right}
 .hafta-mini-kart:hover{transform:scale(1.02)}
 .hafta-mini-kart.yapildi{border-left-color:#2e7d32;opacity:.9}
 
+
+/* Mobil Gezinti ve Ekran Duzenleri */
+.mobil-altbar{display:none}
+.yalniz-mobil{display:none !important}
+.selam-kapat{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;font-size:18px;line-height:1;color:var(--soluk);display:grid;place-items:center;cursor:pointer}
+.selam-kapat:hover{background:rgba(59,52,44,.08);color:var(--murekkep)}
+.selam-ac{position:fixed;top:66px;left:14px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;z-index:3;color:var(--murekkep);display:none}
+.selam-ac:active{transform:scale(.96)}
+.m-rozet{position:absolute;top:4px;right:12px;background:var(--mercan);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px}
+
+@media (max-width: 900px) {
+  :root{ --sag:0px }
+  .yalniz-mobil{display:inline-flex !important}
+  
+  /* Ust bar */
+  .ustbar{height:54px;padding:0 12px;gap:8px}
+  .marka{gap:6px}
+  .logo{width:26px;height:26px;border-radius:7px}
+  .marka b{font-size:15px}
+  .marka small{display:none}
+  .saat,#genel{display:none}
+  .hap{padding:5px 9px;font-size:11.5px;gap:6px}
+  .sekmeler{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:4px;flex:1;min-width:0}
+  .sekmeler::-webkit-scrollbar{display:none}
+  .sekmeler button{padding:0 10px;font-size:13px;white-space:nowrap;flex-shrink:0}
+
+  /* Alt Gezinti Bari */
+  .mobil-altbar{display:flex;position:fixed;bottom:0;left:0;right:0;height:calc(56px + env(safe-area-inset-bottom, 0px));padding-bottom:env(safe-area-inset-bottom, 0px);background:rgba(250,245,237,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(59,52,44,.1);z-index:20;justify-content:space-around;align-items:center}
+  .mobil-altbar button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-weight:500;color:var(--soluk);position:relative;padding:6px 12px;border-radius:10px;transition:all .15s}
+  .mobil-altbar button.secili{color:var(--mercan-k);font-weight:700}
+  .mobil-altbar .m-ikon{font-size:18px;line-height:1}
+
+  /* Selamlama */
+  .selam{top:62px;left:10px;right:10px;width:auto;padding:12px 14px;border-radius:14px;max-height:160px;overflow-y:auto}
+  .selam h1{font-size:22px;margin:2px 0 4px}
+  .selam p{font-size:12.5px;line-height:1.4}
+  .selam.gizli{display:none}
+
+  /* Sag kolon (CEO & Canli Akis) - Mobilde bagimsiz sayfa gibi davranir */
+  .sag{display:none;position:fixed;top:60px;left:10px;right:10px;bottom:calc(62px + env(safe-area-inset-bottom, 0px));width:auto;z-index:6;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .sag.mobil-acik{display:flex}
+  .kutu{border-radius:14px}
+  .ceo-kutu{max-height:55%}
+
+  /* Komut cubugu */
+  .komut{left:10px;right:10px;bottom:calc(64px + env(safe-area-inset-bottom, 0px));width:auto;transform:none;padding:6px 8px 6px 12px;border-radius:16px;z-index:5}
+  .komut input{font-size:13.5px;padding:6px 2px}
+  .komut .gonder{font-size:13px;padding:8px 14px}
+
+  /* Sekme sayfalari */
+  .sayfa{top:54px;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom, 0px));width:100%;border-radius:0;border:none;padding:16px 14px;z-index:6;-webkit-overflow-scrolling:touch}
+  .sayfa h2{font-size:22px}
+  .izgara{grid-template-columns:1fr}
+  .hafiza-izgara{grid-template-columns:1fr}
+  .takvim-liste{grid-template-columns:1fr}
+  .ozet-sayilar div{flex:1 1 120px;min-width:110px}
+
+  /* Ajan/Oda Paneli - Mobilde Bottom Sheet */
+  .panel{top:auto;left:0;right:0;bottom:0;width:100%;max-height:84vh;border-radius:22px 22px 0 0;border-bottom:none;padding:22px 18px calc(24px + env(safe-area-inset-bottom, 0px));transform:translateY(100%);z-index:25;box-shadow:0 -10px 40px rgba(59,52,44,.25)}
+  .panel.acik{transform:translateY(0)}
+
+  /* Rapor Modali - Mobilde Tam Ekran Cekmece */
+  .rapor-modal{top:0;left:0;right:0;bottom:0;width:100%;height:100%;border-radius:0;border:none;transform:translateY(100%);z-index:30}
+  .rapor-modal.acik{transform:translateY(0)}
+  .rapor-baslik-bar{padding:calc(12px + env(safe-area-inset-top, 0px)) 16px 12px}
+  .rapor-govde{padding:16px}
+
+  /* Modallar */
+  .hafiza-modal{width:calc(100vw - 20px);max-height:88vh;overflow-y:auto;padding:18px 16px;border-radius:16px}
+
+  /* 3D Etiketler & Kucuk Ogeler */
+  .etiket3d{padding:3px 6px 4px;border-radius:6px;max-width:160px}
+  .etiket3d .ad{font-size:11px}
+  .etiket3d .ne{font-size:10px}
+  .etiket3d .balon{width:210px;font-size:11.5px}
+  .tost{left:50%;bottom:calc(122px + env(safe-area-inset-bottom, 0px));max-width:calc(100% - 24px);transform:translateX(-50%);z-index:40}
+  .mod{bottom:calc(62px + env(safe-area-inset-bottom, 0px));right:10px;font-size:10px}
+
+  /* Tablolar */
+  .md-tablo-sarma, table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .haftalik-izgara{grid-template-columns:repeat(7,minmax(130px,1fr));gap:8px;-webkit-overflow-scrolling:touch}
+}
+
 </style>
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
@@ -420,6 +503,7 @@ td.sayi,th.sayi{text-align:right}
   <div class="marka"><div class="logo"><i></i></div><b id="marka">Ajan Ofisi</b><small>AJAN OFİSİ</small></div>
   <nav class="sekmeler" id="sekmeler">
     <button data-sekme="ofis" class="secili">Ofis</button>
+    <button data-sekme="akis" class="yalniz-mobil">⚡ CEO & Akış</button>
     <button data-sekme="odalar">Odalar</button>
     <button data-sekme="hafiza">Hafıza</button>
     <button data-sekme="maliyet">Maliyet</button>
@@ -434,10 +518,12 @@ td.sayi,th.sayi{text-align:right}
 </header>
 
 <section class="selam cam" id="selam">
+  <button class="selam-kapat" id="selamKapat" title="Kapat">×</button>
   <div class="tarih" id="tarih"></div>
   <h1 id="selamBaslik">Merhaba.</h1>
   <p id="selamMetin">Ofis yükleniyor…</p>
 </section>
+<button class="selam-ac cam" id="selamAc">👋 Bilgi</button>
 
 <aside class="sag">
   <section class="kutu cam ceo-kutu">
@@ -523,6 +609,31 @@ td.sayi,th.sayi{text-align:right}
 </form>
 <div class="tost cam" id="tost"></div>
 <div class="mod" id="mod"><span class="nokta"></span><span id="modYazi">Canlı</span></div>
+
+
+<nav class="mobil-altbar" id="mobilAltBar">
+  <button data-sekme="ofis" class="secili">
+    <span class="m-ikon">🏢</span>
+    <span>Ofis</span>
+  </button>
+  <button data-sekme="akis">
+    <span class="m-ikon">⚡</span>
+    <span>CEO & Akış</span>
+    <span class="m-rozet" id="mobilCeoRozet" style="display:none">0</span>
+  </button>
+  <button data-sekme="takvim">
+    <span class="m-ikon">📅</span>
+    <span>Takvim</span>
+  </button>
+  <button data-sekme="raporlar">
+    <span class="m-ikon">📑</span>
+    <span>Raporlar</span>
+  </button>
+  <button data-sekme="hafiza">
+    <span class="m-ikon">🧠</span>
+    <span>Hafıza</span>
+  </button>
+</nav>
 
 <script type="module">
 import * as THREE from 'three';
@@ -675,9 +786,12 @@ const camera = new THREE.PerspectiveCamera(26, innerWidth / innerHeight, 1, 400)
 const GENEL = { poz:new THREE.Vector3(36.5, 52.5, 65.5), hedef:new THREE.Vector3(.6, 0, 3.4) };
 camera.position.copy(GENEL.poz);
 function gorusKaydir() {
-  // sahneyi sağ kolon ile selamlama kartının arasındaki boşluğa ortala
   camera.aspect = innerWidth / innerHeight;
-  camera.setViewOffset(innerWidth, innerHeight, Math.round(innerWidth * .085), -Math.round(innerHeight * .015), innerWidth, innerHeight);
+  if (innerWidth <= 768) {
+    camera.clearViewOffset();
+  } else {
+    camera.setViewOffset(innerWidth, innerHeight, Math.round(innerWidth * .085), -Math.round(innerHeight * .015), innerWidth, innerHeight);
+  }
   camera.updateProjectionMatrix();
 }
 gorusKaydir();
@@ -1379,6 +1493,7 @@ function kartEkle(o) {
   kartlariCiz();
 }
 function kartlariCiz() {
+  if (typeof mobilRozetGuncelle === "function") mobilRozetGuncelle();
   const kok = $('kartlar');
   const sirali = [...kartlar.filter(k => !k.onay && !k.sonra), ...kartlar.filter(k => !k.onay && k.sonra)];
   const bekleyen = sirali.length;
@@ -2015,10 +2130,24 @@ function panelYenile() {
 /* ---------- sekmeler ---------- */
 let aktifSekme = 'ofis';
 const sayfa = $('sayfa');
+const sagKolon = document.querySelector('.sag');
 async function sekmeAc(ad) {
   aktifSekme = ad;
   document.querySelectorAll('#sekmeler button').forEach(b => b.classList.toggle('secili', b.dataset.sekme === ad));
-  if (ad === 'ofis') { sayfa.classList.remove('acik'); return; }
+  document.querySelectorAll('#mobilAltBar button').forEach(b => b.classList.toggle('secili', b.dataset.sekme === ad));
+  if (ad === 'ofis') {
+    sayfa.classList.remove('acik');
+    if (sagKolon) sagKolon.classList.remove('mobil-acik');
+    gorusKaydir();
+    return;
+  }
+  if (ad === 'akis') {
+    sayfa.classList.remove('acik');
+    if (sagKolon) sagKolon.classList.add('mobil-acik');
+    panelKapat();
+    return;
+  }
+  if (sagKolon) sagKolon.classList.remove('mobil-acik');
   panelKapat();
   const icerik = ad === 'odalar' ? odalarSayfasi() : ad === 'hafiza' ? await hafizaSayfasi() : ad === 'dosyalar' ? await dosyalarSayfasi() : ad === 'raporlar' ? await raporlarSayfasi() : ad === 'takvim' ? await takvimSayfasi() : maliyetSayfasi();
   if (aktifSekme !== ad) return;
@@ -3240,7 +3369,8 @@ tuval.addEventListener('pointermove', e => {
 });
 tuval.addEventListener('pointerdown', e => { basNokta = [e.clientX, e.clientY]; });
 tuval.addEventListener('pointerup', e => {
-  if (!basNokta || Math.hypot(e.clientX - basNokta[0], e.clientY - basNokta[1]) > 5) return;
+  const maxFark = window.matchMedia('(pointer: coarse)').matches ? 14 : 5;
+  if (!basNokta || Math.hypot(e.clientX - basNokta[0], e.clientY - basNokta[1]) > maxFark) return;
   const h = hedefBul(e);
   if (meme.aktif()) { const eski = meme.kapat(); if (!h) { if (eski) odayaGit(odaBul(eski.oda)); return; } }
   if (!h) return;
@@ -3389,6 +3519,36 @@ addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); go
 
 /* ---------- başlangıç ---------- */
 kartlariCiz();
+mobilRozetGuncelle();
+
+/* ---------- mobil etkilesim ve bildirimler ---------- */
+function mobilRozetGuncelle() {
+  const mRozet = $('mobilCeoRozet');
+  if (mRozet) {
+    const bekleyen = kartlar.filter(k => !k.onay).length;
+    mRozet.textContent = bekleyen;
+    mRozet.style.display = bekleyen > 0 ? 'inline-flex' : 'none';
+  }
+}
+document.querySelectorAll('#mobilAltBar button').forEach(b => {
+  b.onclick = () => { SES.tik(); sekmeAc(b.dataset.sekme); };
+});
+const selamKapatBtn = $('selamKapat'), selamAcBtn = $('selamAc'), selamKutu = $('selam');
+if (selamKapatBtn) {
+  selamKapatBtn.onclick = () => {
+    SES.tik();
+    selamKutu.classList.add('gizli');
+    if (selamAcBtn) selamAcBtn.style.display = 'block';
+  };
+}
+if (selamAcBtn) {
+  selamAcBtn.onclick = () => {
+    SES.tik();
+    selamKutu.classList.remove('gizli');
+    selamAcBtn.style.display = 'none';
+  };
+}
+
 if (DEMO) { modGoster('demo', 'Demo · arka uç kapalı'); demo.basla(); ustGuncelle(); }
 else if (!apiAjanlar.length) { modGoster('kopuk', 'Sunucu yok · ?demo=1 ile dene'); tost('Sunucuya ulaşılamadı. Bağlamadan denemek için adrese ?demo=1 ekle.'); }
 else { ilkDurum(); await sayacYukle(); await tokenYukle(); await terminalleriYukle(); canliBaglan(); setInterval(sayacYukle, 30000); setInterval(terminalleriYukle, 8000); setInterval(tokenYukle, 60000); }

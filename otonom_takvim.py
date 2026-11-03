@@ -48,7 +48,8 @@ AJAN_VARSAYILAN_ETIKET = {
     "pazaryeri-tr": ["#Trendyol", "#Hepsiburada"],
     "pazaryeri-butik": ["#N11", "#Pazarama", "#PttAVM"],
     "global-ihracat": ["#Amazon", "#Ozon", "#Temu"],
-    "sosyal-medya": ["#Instagram", "#Facebook", "#Reels"],
+    "sosyal-medya": ["#Facebook"],
+    "instagram": ["#Instagram", "#Reels"],
     "linkedin-b2b": ["#LinkedIn", "#B2B"],
     "reklam-ppc": ["#MetaAds", "#Instagram", "#Facebook"],
     "web-seo": ["#SEO", "#nidazeytin.com"],
@@ -164,14 +165,44 @@ def varsayilan_plan_olustur():
             "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. nidazeytin.com ürün kataloğundaki zeytinyağı, zeytin ve doğal sabun ürünlerinin arama motoru görünürlüğünü artıracak günlük teknik SEO ve meta açıklama iyileştirme önerilerini hazırla.",
         },
         {
-            "baslik": "Haftalık Instagram & Facebook Post + Reels Takvimi",
+            "baslik": "Haftalık Facebook Sayfası Paylaşım Takvimi",
             "ajan": "sosyal-medya",
             "tarih_saat": _sonraki_hafta_gunu(0, "10:00", simdi),  # Pazartesi
             "tekrar": "haftalik",
             "gun": 0,
             "saat": "10:00",
-            "etiketler": ["#Instagram", "#Facebook", "#Reels", "#Otonom"],
-            "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Nida Zeytin Facebook sayfası ve Instagram için 1/3 kuralına uygun (Ürün, Tarif/Sağlık, Edremit Bahçe Hikayesi) 7 günlük paylaşım metinlerini, Reels senaryolarını ve CTA'ları hazırla.",
+            "etiketler": ["#Facebook", "#Otonom"],
+            "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Nida Zeytin Facebook sayfası için 1/3 kuralına uygun (Ürün, Tarif/Sağlık, Edremit Bahçe Hikayesi) 7 günlük paylaşım metinlerini ve CTA'ları hazırla.",
+        },
+        {
+            "baslik": "Haftalık Instagram İçerik Planı (Reel + Carousel + Story)",
+            "ajan": "instagram",
+            "tarih_saat": _sonraki_hafta_gunu(0, "10:30", simdi),  # Pazartesi
+            "tekrar": "haftalik",
+            "gun": 0,
+            "saat": "10:30",
+            "etiketler": ["#Instagram", "#Reels", "#Otonom"],
+            "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Bu hafta için 4-5 gönderilik Instagram planı hazırla (en az 3 Reel): gün, format, direk, açı, çağrı, çekim notu; ayrıca 5 günlük story akışı. Stokta olmayan ürünleri kullanma.",
+        },
+        {
+            "baslik": "Instagram Reel Senaryosu (3 kanca, puanlı)",
+            "ajan": "instagram",
+            "tarih_saat": _sonraki_hafta_gunu(1, "15:00", simdi),  # Salı
+            "tekrar": "haftalik",
+            "gun": 1,
+            "saat": "15:00",
+            "etiketler": ["#Instagram", "#Reels", "#Otonom"],
+            "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Katalogda stokta olan bir ürün için tek fikirli bir Reel hazırla: 3 farklı formülden 3 kanca, seçilen kancayla satır satır senaryo, ekran metni ve altyazı. Çıktı etiketlerini kullan.",
+        },
+        {
+            "baslik": "Instagram Yorum & DM Yanıt Taslakları",
+            "ajan": "instagram",
+            "tarih_saat": _sonraki_hafta_gunu(3, "16:00", simdi),  # Perşembe
+            "tekrar": "haftalik",
+            "gun": 3,
+            "saat": "16:00",
+            "etiketler": ["#Instagram", "#Webmail", "#Otonom"],
+            "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Instagram'da sık gelen 6 soru (fiyat, kargo, tazelik, toptan, hediye, sipariş) için sıcak ve kısa yorum/DM yanıt taslağı hazırla. Fiyat yalnız katalogdan; sipariş WhatsApp hattına yönlenir.",
         },
         {
             "baslik": "Trendyol & Hepsiburada Haftalık Kampanya ve Kupon Kurgusu",

@@ -80,7 +80,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Kampanya & listeleme",
       "aciklama": "Trendyol ve Hepsiburada mağazaları için SEO uyumlu ürün başlıkları, kampanya kurgusu ve sepet büyütme paketleri hazırlar.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
           "etiket": "Trendyol & HB Kampanya Planı",
@@ -101,7 +106,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Fiyat & marj analizi",
       "aciklama": "N11 (olive-edremit), Pazarama, PttAVM ve PTT Akıllı Esnaf mağazaları için komisyon/kargo dahil kârlı fiyatlandırma matrisi çıkarır.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
           "etiket": "Çoklu Mağaza Fiyat Matrisi",
@@ -122,7 +132,13 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Global listeleme & ihracat",
       "aciklama": "Amazon Seller Central, Ozon Global ve Temu için çok dilli (EN/RU/TR) listeleme, A+ Content ve sınır ötesi lojistik planı üretir.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "WebSearch", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "WebSearch",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
           "etiket": "Amazon İngilizce A+ Listeleme",
@@ -136,22 +152,62 @@
     },
     {
       "id": "sosyal-medya",
-      "ad": "Facebook & IG Küratörü",
+      "ad": "Facebook Küratörü",
       "oda": "sosyal",
       "cwd": "./departmanlar/sosyal-medya",
       "model": "mimo-v2.6-pro",
       "ne_zaman": "istek",
-      "ne_zaman_metin": "Sosyal medya takvimi",
-      "aciklama": "Nida Zeytin Facebook sayfası ve Instagram için görsel hikaye anlatımı, Reels senaryoları ve haftalık paylaşım takvimi hazırlar.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "ne_zaman_metin": "Facebook sayfası takvimi",
+      "aciklama": "Nida Zeytin Facebook sayfası için görsel hikaye anlatımı ve haftalık paylaşım takvimi hazırlar. Instagram içeriği `instagram` ajanındadır.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
-          "etiket": "Haftalık Facebook & IG Takvimi",
-          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Nida Zeytin Facebook sayfası ve Instagram için 1/3 kuralına uygun (Ürün, Tarif/Sağlık, Edremit Bahçe Hikayesi) 7 günlük paylaşım metinlerini, görsel çekim tariflerini ve CTA'ları hazırla."
+          "etiket": "Haftalık Facebook Takvimi",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Nida Zeytin Facebook sayfası için 1/3 kuralına uygun (Ürün, Tarif/Sağlık, Edremit Bahçe Hikayesi) 7 günlük paylaşım metinlerini, görsel çekim tariflerini ve CTA'ları hazırla."
+        }
+      ]
+    },
+    {
+      "id": "instagram",
+      "ad": "Instagram İçerik & Topluluk",
+      "oda": "sosyal",
+      "cwd": "./departmanlar/instagram",
+      "model": "mimo-v2.6-pro",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Reels, carousel, story, altyazı, yorum/DM taslağı",
+      "aciklama": "Nida Zeytin Instagram hesabı için kanca puanlı Reel senaryosu, carousel, story, altyazı, yorum/DM yanıt taslağı ve haftalık plan hazırlar. Yayın yapmaz; çıktı sunucu denetiminden geçer.",
+      "denetim": "instagram",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Reel Senaryosu (3 kanca, puanlı)",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Katalogdaki stokta olan bir ürün için (tükenenleri alma) tek fikirli bir Reel hazırla: 3 farklı formülden 3 kanca, seçilen kancayla satır satır senaryo, ekran metni ve altyazı. Etiketleri kullan."
         },
         {
-          "etiket": "3 Reels Video Senaryosu",
-          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Soğuk sıkım zeytinyağının kıvamını, Edremit çizik zeytinin doğallığını ve kargo paketleme özenimizi gösteren 3 adet yüksek etkileşimli Reels/kısa video senaryosu yaz."
+          "etiket": "Haftalık Instagram Planı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Bu hafta için 4-5 gönderilik Instagram planı hazırla (en az 3 Reel): gün, format, direk, açı, çağrı, çekim notu; ayrıca 5 günlük story akışı ve etkileşim kurulacak 10 hesap türü. Mevsim: erken hasat, Efsane Kasım, yılbaşı hediye."
+        },
+        {
+          "etiket": "Carousel (kapak kancalı)",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. 'Gerçek sızma zeytinyağı nasıl seçilir ve saklanır' konusunda sağlık iddiası içermeyen, 7 slaytlık carousel yaz: kapak kancası, her slayt tek cümle, alt metin ve altyazı."
+        },
+        {
+          "etiket": "Yorum & DM Yanıt Taslakları",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Instagram'da sık gelen 6 soru için (fiyat, kargo, taze mi, asit, toptan, hediye) sıcak ve kısa yorum/DM yanıt taslağı hazırla. Fiyatı yalnız katalogdan al; sipariş için WhatsApp hattına yönlendir."
+        },
+        {
+          "etiket": "HORECA Instagram DM Taslağı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Otel/kahvaltı salonu/şarküteri hesaplarına gönderilecek tek mesaj + tek takip içeren Instagram DM taslağı yaz; kişiye özel ilk satır için {{işletme özelliği}} yer tutucusu bırak, numune teklifi sun. Toplu gönderim önerme."
         }
       ]
     },
@@ -164,7 +220,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Kurumsal & B2B içerik",
       "aciklama": "Olive Edremit Zeytincilik LinkedIn sayfası için kurumsal otorite yazıları, HORECA/toptan satış ve kurumsal hediye teklifleri üretir.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
           "etiket": "LinkedIn Kurumsal Post (3 Hook)",
@@ -185,7 +246,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Reklam & ROAS planı",
       "aciklama": "Meta Ads (Facebook/Instagram) ve pazaryeri sponsorlu ürün reklamları için hedef kitle, bütçe ve ROAS/ACOS optimizasyon planı çıkarır.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "yalin": true,
       "hazir_gorevler": [
         {
@@ -203,7 +269,14 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "SEO & içerik üretimi",
       "aciklama": "nidazeytin.com için anahtar kelime kümeleri, SEO uyumlu blog yazıları, kategori/ürün açıklamaları ve JSON-LD şemaları hazırlar.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "WebSearch", "WebFetch", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "WebSearch",
+        "WebFetch",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
           "etiket": "nidazeytin.com SEO Eylem Planı",
@@ -224,7 +297,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Yalnız 'mail' geçince",
       "aciklama": "info@nidazeytin.com ve olive@nidazeytin.com için kurumsal e-posta taslakları ve pazaryeri müşteri soru-cevap şablonları üretir.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "tetik_kelime": "mail",
       "hazir_gorevler": [
         {
@@ -246,7 +324,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Mutabakat & maliyet",
       "aciklama": "9 pazaryeri hakedişini, kargo/komisyon kesintilerini ve Garanti BBVA banka mutabakat kontrol listesini denetler.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "hazir_gorevler": [
         {
           "etiket": "Pazaryeri Hakediş Kontrol Tablosu",
@@ -263,7 +346,12 @@
       "ne_zaman": "istek",
       "ne_zaman_metin": "Stok & ambalaj planı",
       "aciklama": "9 pazaryeri ve nidazeytin.com arasında stok senkronizasyonu, cam şişe/teneke ambalaj emniyet stoğu ve dolum planı çıkarır.",
-      "izinli_araclar": ["Read", "Glob", "Grep", "Write"],
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
       "yalin": true,
       "hazir_gorevler": [
         {

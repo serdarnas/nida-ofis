@@ -23,6 +23,7 @@ import token_sayac  # noqa: E402
 import evren_istemci  # noqa: E402
 import veri_senkron  # noqa: E402
 import otonom_takvim  # noqa: E402
+import rapor_mail  # noqa: E402
 
 HOST = os.environ.get("OFIS_HOST", "127.0.0.1")
 ILK_PORT = int(os.environ.get("OFIS_PORT") or os.environ.get("PORT") or "8796")
@@ -1201,6 +1202,10 @@ def main():
                 otonom_takvim.zamani_gelenleri_kontrol_et(gorev_baslat)
             except Exception as e:
                 sys.stderr.write(f"Otonom takvim kontrol hatası: {e}\n")
+            try:
+                rapor_mail.kontrol_et()
+            except Exception as e:
+                sys.stderr.write(f"Rapor mail hatası: {e}\n")
             time.sleep(25)
 
     threading.Thread(target=_periyodik_otonom_takvim, name="otonom-takvim", daemon=True).start()
