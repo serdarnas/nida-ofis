@@ -1,0 +1,92 @@
+{
+ "ceo": {
+  "ofis": {
+   "input_tokens": 4567,
+   "output_tokens": 465,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 4096
+  },
+  "terminal": {
+   "input_tokens": 0,
+   "output_tokens": 0,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0
+  }
+ },
+ "pazaryeri-butik": {
+  "ofis": {
+   "input_tokens": 2172,
+   "output_tokens": 841,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0
+  },
+  "terminal": {
+   "input_tokens": 0,
+   "output_tokens": 0,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0
+  }
+ },
+ "pazaryeri-tr": {
+  "ofis": {
+   "input_tokens": 1992,
+   "output_tokens": 1022,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0
+  },
+  "terminal": {
+   "input_tokens": 0,
+   "output_tokens": 0,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0
+  }
+ },
+ "_kosular": {
+  "2026-11-01-072941-ceo-0247": {
+   "ajan": "ceo",
+   "usage": {
+    "input_tokens": 2880,
+    "output_tokens": 55,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  },
+  "2026-11-01-073004-ceo-c565": {
+   "ajan": "ceo",
+   "usage": {
+    "input_tokens": 830,
+    "output_tokens": 78,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 2048
+   }
+  },
+  "2026-11-01-073300-ceo-5454": {
+   "ajan": "ceo",
+   "usage": {
+    "input_tokens": 857,
+    "output_tokens": 332,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 2048
+   }
+  },
+  "2026-11-01-073312-pazaryeri-butik": {
+   "ajan": "pazaryeri-butik",
+   "usage": {
+    "input_tokens": 2172,
+    "output_tokens": 841,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  },
+  "2026-11-01-073507-pazaryeri-tr": {
+   "ajan": "pazaryeri-tr",
+   "usage": {
+    "input_tokens": 1992,
+    "output_tokens": 1022,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  }
+ },
+ "_oturumlar": {}
+}

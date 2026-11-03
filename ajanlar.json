@@ -1,0 +1,364 @@
+{
+  "_not": "Nida Zeytin (Olive Edremit Zeytincilik San. ve Tic. Ltd. Şti.) — EVREN LLM API Filosu + Agency-Agents Yapılandırması",
+  "surum": 2,
+  "ayarlar": {
+    "kullanici": "Nida Zeytin",
+    "marka": "Nida Zeytin Ofisi"
+  },
+  "odalar": [
+    {
+      "id": "atolye",
+      "ad": "Yurt İçi Pazaryerleri",
+      "aciklama": "Trendyol, Hepsiburada, N11, Pazarama, PttAVM ve PTT Akıllı Esnaf mağaza operasyonları, BuyBox ve fiyatlandırma.",
+      "not": "Kanallar: Trendyol · Hepsiburada · N11 (olive-edremit) · Pazarama · PttAVM · Akıllı Esnaf"
+    },
+    {
+      "id": "veri",
+      "ad": "Global & İhracat Odası",
+      "aciklama": "Amazon Seller Central, Ozon Global ve Temu sınır ötesi e-ticaret, çok dilli listeleme ve uluslararası lojistik.",
+      "not": "Kanallar: Amazon · Ozon Global · Temu (EN / RU / TR lokalizasyon)"
+    },
+    {
+      "id": "sosyal",
+      "ad": "Sosyal Medya & B2B",
+      "aciklama": "Facebook, Instagram, LinkedIn (Olive Edremit Zeytincilik) ve Meta/Pazaryeri performans reklamları (PPC).",
+      "not": "Kanallar: Facebook · Instagram · LinkedIn B2B · Meta & Pazaryeri Reklamları"
+    },
+    {
+      "id": "yazi",
+      "ad": "Web & SEO (nidazeytin.com)",
+      "aciklama": "nidazeytin.com teknik SEO, kategori/ürün açıklamaları, blog içerikleri ve dönüşüm optimizasyonu.",
+      "not": "Kanal: https://www.nidazeytin.com/ (E-E-A-T & Organik Trafik)"
+    },
+    {
+      "id": "posta",
+      "ad": "Webmail & Müşteri İlişkileri",
+      "aciklama": "info@nidazeytin.com ve olive@nidazeytin.com kurumsal e-posta taslakları, müşteri soru-cevap ve destek.",
+      "not": "Kanallar: info@nidazeytin.com · olive@nidazeytin.com · +90 542 52 34 102"
+    },
+    {
+      "id": "bakim",
+      "ad": "Finans & Hakediş Kontrol",
+      "aciklama": "Pazaryeri hakediş mutabakatı, komisyon/kargo maliyet kontrolü ve Garanti BBVA nakit akış raporlaması.",
+      "not": "Olive Edremit Zeytincilik San ve Tic Ltd Şti · Garanti BBVA Hakediş Denetimi"
+    },
+    {
+      "id": "arastirma",
+      "ad": "Stok & Tedarik Zinciri",
+      "aciklama": "Hasat/dolum planlama, cam şişe/teneke ambalaj tedariki ve 9 pazaryeri arasında stok senkronizasyonu.",
+      "not": "Edremit Körfezi Üretim · Dolum · Çoklu Mağaza Stok Dağıtımı"
+    }
+  ],
+  "varsayilan_yasak_araclar": [
+    "Read(**/.env)",
+    "Read(**/.env.*)",
+    "Read(~/.env)",
+    "Bash(rm:*)",
+    "Bash(git push:*)",
+    "Bash(curl:*)",
+    "Bash(open:*)"
+  ],
+  "ajanlar": [
+    {
+      "id": "ceo",
+      "ad": "CEO (Nida Zeytin)",
+      "oda": "ceo",
+      "cwd": ".",
+      "model": "glm-5.3",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Sen konuşunca",
+      "aciklama": "Olive Edremit Zeytincilik yönetim merkezi; gelen hedefleri pazaryeri, ihracat, sosyal medya, SEO ve finans ajanlarına dağıtır.",
+      "izinli_araclar": [],
+      "hazir_gorevler": []
+    },
+    {
+      "id": "pazaryeri-tr",
+      "ad": "Trendyol & HB Uzmanı",
+      "oda": "atolye",
+      "cwd": "./departmanlar/pazaryeri-tr",
+      "model": "deepseek-v4.1-flash",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Kampanya & listeleme",
+      "aciklama": "Trendyol ve Hepsiburada mağazaları için SEO uyumlu ürün başlıkları, kampanya kurgusu ve sepet büyütme paketleri hazırlar.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Trendyol & HB Kampanya Planı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Nida Zeytin'in Trendyol ve Hepsiburada mağazaları için sepet ortalamasını artıracak 3'lü Tanışma Paketi ve kupon kampanya kurgusunu hazırla."
+        },
+        {
+          "etiket": "SEO Ürün Başlığı & Açıklama",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. 5 Litre Teneke Erken Hasat Soğuk Sıkım Edremit Zeytinyağı ve 1 Kg Edremit Çizik Yeşil Zeytin için Trendyol/Hepsiburada algoritmasına tam uyumlu başlık ve madde işaretli ürün açıklaması yaz."
+        }
+      ]
+    },
+    {
+      "id": "pazaryeri-butik",
+      "ad": "N11, Pazarama & PttAVM",
+      "oda": "atolye",
+      "cwd": "./departmanlar/pazaryeri-butik",
+      "model": "deepseek-v4.1-flash",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Fiyat & marj analizi",
+      "aciklama": "N11 (olive-edremit), Pazarama, PttAVM ve PTT Akıllı Esnaf mağazaları için komisyon/kargo dahil kârlı fiyatlandırma matrisi çıkarır.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Çoklu Mağaza Fiyat Matrisi",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. N11 (olive-edremit), Pazarama, PttAVM ve PTT Akıllı Esnaf kanalları için 1L Cam Şişe ve 5L Teneke Sızma Zeytinyağında komisyon, PTT kargo baremi, ambalaj ve %1 KDV dahil örnek fiyatlandırma ve net marj tablosu oluştur."
+        },
+        {
+          "etiket": "N11 & PttAVM Mağaza Kurgusu",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. N11 olive-edremit mağazası ve PttAVM/Akıllı Esnaf için öne çıkarılacak vitrin ürünleri ve mağaza kupon stratejisini hazırla."
+        }
+      ]
+    },
+    {
+      "id": "global-ihracat",
+      "ad": "Amazon, Ozon & Temu",
+      "oda": "veri",
+      "cwd": "./departmanlar/global-ihracat",
+      "model": "glm-5.3",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Global listeleme & ihracat",
+      "aciklama": "Amazon Seller Central, Ozon Global ve Temu için çok dilli (EN/RU/TR) listeleme, A+ Content ve sınır ötesi lojistik planı üretir.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "WebSearch",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Amazon İngilizce A+ Listeleme",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Amazon Seller Central için Nida Zeytin Edremit Körfezi Erken Hasat Soğuk Sıkım Zeytinyağı (Cold Pressed Extra Virgin Olive Oil) İngilizce Title, 5 Bullet Point, Backend Search Terms ve A+ Content hikaye modülünü yaz."
+        },
+        {
+          "etiket": "Ozon & Temu Global Paket Kurgusu",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Ozon Global ve Temu kanallarında uluslararası kargoya dayanıklı teneke zeytinyağı ve vakumlu Edremit zeytin setleri için listeleme ve fiyat/lojistik stratejisi çıkar."
+        }
+      ]
+    },
+    {
+      "id": "sosyal-medya",
+      "ad": "Facebook Küratörü",
+      "oda": "sosyal",
+      "cwd": "./departmanlar/sosyal-medya",
+      "model": "mimo-v2.6-pro",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Facebook sayfası takvimi",
+      "aciklama": "Nida Zeytin Facebook sayfası için görsel hikaye anlatımı ve haftalık paylaşım takvimi hazırlar. Instagram içeriği `instagram` ajanındadır.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Haftalık Facebook Takvimi",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Nida Zeytin Facebook sayfası için 1/3 kuralına uygun (Ürün, Tarif/Sağlık, Edremit Bahçe Hikayesi) 7 günlük paylaşım metinlerini, görsel çekim tariflerini ve CTA'ları hazırla."
+        }
+      ]
+    },
+    {
+      "id": "instagram",
+      "ad": "Instagram İçerik & Topluluk",
+      "oda": "sosyal",
+      "cwd": "./departmanlar/instagram",
+      "model": "mimo-v2.6-pro",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Reels, carousel, story, altyazı, yorum/DM taslağı",
+      "aciklama": "Nida Zeytin Instagram hesabı için kanca puanlı Reel senaryosu, carousel, story, altyazı, yorum/DM yanıt taslağı ve haftalık plan hazırlar. Yayın yapmaz; çıktı sunucu denetiminden geçer.",
+      "denetim": "instagram",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Reel Senaryosu (3 kanca, puanlı)",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Katalogdaki stokta olan bir ürün için (tükenenleri alma) tek fikirli bir Reel hazırla: 3 farklı formülden 3 kanca, seçilen kancayla satır satır senaryo, ekran metni ve altyazı. Etiketleri kullan."
+        },
+        {
+          "etiket": "Haftalık Instagram Planı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Bu hafta için 4-5 gönderilik Instagram planı hazırla (en az 3 Reel): gün, format, direk, açı, çağrı, çekim notu; ayrıca 5 günlük story akışı ve etkileşim kurulacak 10 hesap türü. Mevsim: erken hasat, Efsane Kasım, yılbaşı hediye."
+        },
+        {
+          "etiket": "Carousel (kapak kancalı)",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. 'Gerçek sızma zeytinyağı nasıl seçilir ve saklanır' konusunda sağlık iddiası içermeyen, 7 slaytlık carousel yaz: kapak kancası, her slayt tek cümle, alt metin ve altyazı."
+        },
+        {
+          "etiket": "Yorum & DM Yanıt Taslakları",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Instagram'da sık gelen 6 soru için (fiyat, kargo, taze mi, asit, toptan, hediye) sıcak ve kısa yorum/DM yanıt taslağı hazırla. Fiyatı yalnız katalogdan al; sipariş için WhatsApp hattına yönlendir."
+        },
+        {
+          "etiket": "HORECA Instagram DM Taslağı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Otel/kahvaltı salonu/şarküteri hesaplarına gönderilecek tek mesaj + tek takip içeren Instagram DM taslağı yaz; kişiye özel ilk satır için {{işletme özelliği}} yer tutucusu bırak, numune teklifi sun. Toplu gönderim önerme."
+        }
+      ]
+    },
+    {
+      "id": "linkedin-b2b",
+      "ad": "LinkedIn & B2B Satış",
+      "oda": "sosyal",
+      "cwd": "./departmanlar/linkedin-b2b",
+      "model": "glm-5.3",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Kurumsal & B2B içerik",
+      "aciklama": "Olive Edremit Zeytincilik LinkedIn sayfası için kurumsal otorite yazıları, HORECA/toptan satış ve kurumsal hediye teklifleri üretir.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "LinkedIn Kurumsal Post (3 Hook)",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Olive Edremit Zeytincilik LinkedIn sayfası için Edremit Körfezi'nde izlenebilir zeytinyağı üretimimizi ve B2B kalite standartlarımızı anlatan, başında 3 farklı kanca (Hook) seçeneği bulunan kurumsal bir paylaşım taslağı yaz."
+        },
+        {
+          "etiket": "HORECA & Toptan Satış Mesajı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Otel, restoran şefleri (HORECA) ve gurme şarküteri satın almacılarına LinkedIn veya e-posta üzerinden gönderilecek toptan/kurumsal tanışma ve numune teklif mesajını hazırla."
+        }
+      ]
+    },
+    {
+      "id": "reklam-ppc",
+      "ad": "Reklam & PPC Uzmanı",
+      "oda": "sosyal",
+      "cwd": "./departmanlar/reklam-ppc",
+      "model": "qwen3.8-flash-next",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Reklam & ROAS planı",
+      "aciklama": "Meta Ads (Facebook/Instagram) ve pazaryeri sponsorlu ürün reklamları için hedef kitle, bütçe ve ROAS/ACOS optimizasyon planı çıkarır.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "yalin": true,
+      "hazir_gorevler": [
+        {
+          "etiket": "Meta Ads Tam Huni Kampanyası",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. nidazeytin.com ve pazaryeri mağazalarımıza trafik ve satış çekecek Soğuk (TOF), Ilık (MOF) ve Sıcak (Retargeting) Meta Ads reklam seti kurgusunu ve reklam metinlerini hazırla."
+        }
+      ]
+    },
+    {
+      "id": "web-seo",
+      "ad": "Web & SEO (nidazeytin.com)",
+      "oda": "yazi",
+      "cwd": "./departmanlar/web-seo",
+      "model": "deepseek-v4.1-flash",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "SEO & içerik üretimi",
+      "aciklama": "nidazeytin.com için anahtar kelime kümeleri, SEO uyumlu blog yazıları, kategori/ürün açıklamaları ve JSON-LD şemaları hazırlar.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "WebSearch",
+        "WebFetch",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "nidazeytin.com SEO Eylem Planı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. https://www.nidazeytin.com/ için anahtar kelime yamyamlığını önleyen kategori/ürün küme haritasını (Sızma Zeytinyağı, Edremit Yeşil Zeytin, Siyah Zeytin, Doğal Sabun) ve örnek Product JSON-LD şemasını hazırla."
+        },
+        {
+          "etiket": "SEO Blog Taslağı Yaz",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. nidazeytin.com blogu için 'Gerçek Erken Hasat Soğuk Sıkım Edremit Zeytinyağı Nasıl Anlaşılır?' başlıklı, E-E-A-T uyumlu ve ürünlere iç link veren kapsamlı bir SEO makale taslağı yaz."
+        }
+      ]
+    },
+    {
+      "id": "iletisim-destek",
+      "ad": "Webmail & Müşteri Destek",
+      "oda": "posta",
+      "cwd": "./departmanlar/iletisim-destek",
+      "model": "qwen3.8-flash-next",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Yalnız 'mail' geçince",
+      "aciklama": "info@nidazeytin.com ve olive@nidazeytin.com için kurumsal e-posta taslakları ve pazaryeri müşteri soru-cevap şablonları üretir.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "tetik_kelime": "mail",
+      "hazir_gorevler": [
+        {
+          "etiket": "Pazaryeri Soru-Cevap Şablonları",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Trendyol, Hepsiburada ve Amazon'da müşterilerin en sık sorduğu 8 soruya (asit oranı, hasat yılı, soğukta donma testi, kargo paketleme, teneke/cam şişe tercihi) saniyeler içinde yapıştırılabilecek güven verici hazır yanıt şablonları oluştur."
+        },
+        {
+          "etiket": "Kurumsal B2B Teklif Mail Taslağı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. olive@nidazeytin.com adresinden toptan alıcılara ve kurumsal firmalara gönderilmek üzere Olive Edremit Zeytincilik tanıtım ve fiyat teklifi e-posta taslağı hazırla."
+        }
+      ]
+    },
+    {
+      "id": "finans-kontrol",
+      "ad": "Finans & Hakediş Kontrol",
+      "oda": "bakim",
+      "cwd": "./departmanlar/finans-kontrol",
+      "model": "glm-5.3",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Mutabakat & maliyet",
+      "aciklama": "9 pazaryeri hakedişini, kargo/komisyon kesintilerini ve Garanti BBVA banka mutabakat kontrol listesini denetler.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "hazir_gorevler": [
+        {
+          "etiket": "Pazaryeri Hakediş Kontrol Tablosu",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. Olive Edremit Zeytincilik San. ve Tic. Ltd. Şti.'nin Trendyol, Hepsiburada, N11, Pazarama, PttAVM ve Amazon satışlarından Garanti BBVA hesabına yatan hakedişleri denetlemek için haftalık mutabakat ve kesinti kontrol şablonu oluştur."
+        }
+      ]
+    },
+    {
+      "id": "tedarik-stok",
+      "ad": "Stok & Tedarik Uzmanı",
+      "oda": "arastirma",
+      "cwd": "./departmanlar/tedarik-stok",
+      "model": "qwen3.8-flash-next",
+      "ne_zaman": "istek",
+      "ne_zaman_metin": "Stok & ambalaj planı",
+      "aciklama": "9 pazaryeri ve nidazeytin.com arasında stok senkronizasyonu, cam şişe/teneke ambalaj emniyet stoğu ve dolum planı çıkarır.",
+      "izinli_araclar": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Write"
+      ],
+      "yalin": true,
+      "hazir_gorevler": [
+        {
+          "etiket": "9 Pazaryeri Stok Dağıtım Planı",
+          "prompt": "../../marka-profili.md ve CLAUDE.md dosyalarını oku. nidazeytin.com, Trendyol, Hepsiburada, N11, Pazarama, PttAVM, Akıllı Esnaf, Amazon, Ozon ve Temu mağazalarında stoksuz kalma (stock-out) cezası yememek için ürün grubu bazında güvenlik stoğu ve kanal dağıtım kurallarını oluştur."
+        }
+      ]
+    }
+  ]
+}

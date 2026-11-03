@@ -1,0 +1,12 @@
+{
+ "durum": "bitti",
+ "kosu_id": "2026-11-01-073312-pazaryeri-butik",
+ "pid": null,
+ "bitis": "2026-11-01T07:33:36+03:00",
+ "bitis_ts": 1793507616.6827009,
+ "sure_sn": 23.4,
+ "ozet": "**Durum: XML okunamadı — sayı uydurmayacağım.**\n\nBu oturumda web/HTTP erişimim yok; `https://www.nidazeytin.com/xmlexport/export.php?id=6&source=softtr` adresini çekemedim. Dolayısıyla ürün adı, XML kaynak fiyat ve stok verisi elimde değil. Kaynaksız fiyat yazmam yasak olduğu için tabloyu **boş iskelet** olarak veriyorum.\n\n**Ne yapmanız yeterli (biri):**\n1. XML'i indirip `atolye/` klasörüne koyun ",
+ "hata": null,
+ "maliyet_usd": 0.0,
+ "cikti": "cikti\\pazaryeri-butik\\2026-11-01-073312-pazaryeri-butik.md"
+}
