@@ -487,6 +487,19 @@ td.sayi,th.sayi{text-align:right}
   /* Tablolar */
   .md-tablo-sarma, table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .haftalik-izgara{grid-template-columns:repeat(7,minmax(130px,1fr));gap:8px;-webkit-overflow-scrolling:touch}
+
+  /* Ust bar sadelestirme: alt barda olan sekmeler ustte tekrar etmez; Odalar/Maliyet/Dosyalar gorunur kalir */
+  .marka b{font-size:14px;max-width:92px;line-height:1.1;white-space:normal}
+  .hap .hap-yazi{display:none}
+  .sekmeler button[data-sekme=akis],.sekmeler button[data-sekme=takvim],.sekmeler button[data-sekme=raporlar],.sekmeler button[data-sekme=hafiza]{display:none !important}
+  .sekmeler button{padding:0 8px}
+  .sekmeler button.secili::after{left:8px;right:8px}
+  /* Selamlama karti sahneyi kapatmasin */
+  .selam{max-height:none;overflow:hidden}
+  .selam p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media (max-width: 380px) {
+  .marka b{display:none}
 }
 
 </style>
@@ -512,7 +525,7 @@ td.sayi,th.sayi{text-align:right}
     <button data-sekme="takvim">📅 Takvim</button>
   </nav>
   <div class="bosluk"></div>
-  <div class="hap"><span class="nokta" id="aktifNokta"></span><b id="aktif">0</b> ajan çalışıyor</div>
+  <div class="hap"><span class="nokta" id="aktifNokta"></span><b id="aktif">0</b><span class="hap-yazi"> ajan çalışıyor</span></div>
   <span class="saat" id="saat"></span>
   <button class="dugme" id="genel">Genel bakış</button>
 </header>
@@ -902,12 +915,18 @@ aoLeke(scene, KAIDE_W * 1.56, KAIDE_D * 1.61, MERKEZ.x + 1, MERKEZ.z + 3, -1.79,
 const zeminTaban = new THREE.Mesh(new THREE.PlaneGeometry(400 * BUYUK, 400 * BUYUK), new THREE.MeshStandardMaterial({ color:'#ebe2d3', roughness:1 }));
 zeminTaban.rotation.x = -Math.PI / 2; zeminTaban.position.set(MERKEZ.x, -1.8, MERKEZ.z); zeminTaban.receiveShadow = true; scene.add(zeminTaban);
 GENEL.hedef.copy(MERKEZ).add(new THREE.Vector3(.6, 0, 3.4).multiplyScalar(OLCEK));
-GENEL.poz.copy(GENEL.hedef).add(new THREE.Vector3(35.9, 52.5, 62.1).multiplyScalar(OLCEK));
-camera.position.copy(GENEL.poz); controls.target.copy(GENEL.hedef);
-camera.far = 400 * BUYUK; gorusKaydir();
-controls.maxDistance = 100 * BUYUK;
+// dar/dikey ekranda (telefon) yatay görüş açısı daralır: tüm odalar sığsın diye genel bakış uzaklaşır
+const MOBIL_UZAK = () => innerWidth <= 900 ? THREE.MathUtils.clamp(1.25 / (innerWidth / innerHeight), 1, 2.4) : 1;
+function genelKur() {
+  const k = MOBIL_UZAK();
+  GENEL.poz.copy(GENEL.hedef).add(new THREE.Vector3(35.9, 52.5, 62.1).multiplyScalar(OLCEK * k));
+  controls.maxDistance = 100 * BUYUK * k;
+  scene.fog.near = 95 * BUYUK * k; scene.fog.far = 170 * BUYUK * k;
+}
+camera.far = 400 * BUYUK * 2.4; gorusKaydir();
 SINIR.x0 = MERKEZ.x - KAIDE_W / 2 + 1; SINIR.x1 = MERKEZ.x + KAIDE_W / 2 - 1; SINIR.z0 = MERKEZ.z - KAIDE_D / 2 + 2; SINIR.z1 = MERKEZ.z + KAIDE_D / 2 - 2;
-scene.fog.near = 95 * BUYUK; scene.fog.far = 170 * BUYUK;
+genelKur();
+camera.position.copy(GENEL.poz); controls.target.copy(GENEL.hedef);
 gunes.position.copy(MERKEZ).add(new THREE.Vector3(-22, 40, 24).multiplyScalar(BUYUK));
 gunes.target.position.copy(MERKEZ); scene.add(gunes.target);
 const golgeK = Math.max(.6, OLCEK);
@@ -3515,7 +3534,7 @@ function dongu() {
   odaAdGuncelle();
   requestAnimationFrame(dongu);
 }
-addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); gorusKaydir(); });
+addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); gorusKaydir(); genelKur(); });
 
 /* ---------- başlangıç ---------- */
 kartlariCiz();

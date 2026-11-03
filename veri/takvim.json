@@ -2,7 +2,22 @@
   "ayarlar": {
     "otonom_aktif": true,
     "xml_tetik_aktif": true,
-    "son_kontrol": "2026-11-02 07:59:45"
+    "son_kontrol": "2026-11-02 07:59:45",
+    "tohumlanan": [
+      "Amazon, Ozon & Temu Global Listeleme ve Paket Kontrolü",
+      "Günlük SoftTR XML Stok & Kritik Ürün Kontrolü",
+      "Haftalık 9 Pazaryeri Hakediş & Garanti BBVA Mutabakat Kontrolü",
+      "Haftalık Facebook Sayfası Paylaşım Takvimi",
+      "Haftalık Instagram İçerik Planı (Reel + Carousel + Story)",
+      "Instagram Reel Senaryosu (3 kanca, puanlı)",
+      "Instagram Yorum & DM Yanıt Taslakları",
+      "LinkedIn Kurumsal Post & HORECA Toptan Satış Mesajı",
+      "Meta Ads (IG/FB) & Pazaryeri ROAS Reklam Optimizasyonu",
+      "N11, Pazarama ve PttAVM Fiyat & Marj Matrisi Güncelleme",
+      "Trendyol & Hepsiburada Haftalık Kampanya ve Kupon Kurgusu",
+      "Web & Pazaryeri SEO Ürün Metinleri Kontrolü",
+      "nidazeytin.com Haftalık SEO Blog Makalesi Taslağı"
+    ]
   },
   "gorevler": [
     {

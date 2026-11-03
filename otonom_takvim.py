@@ -316,11 +316,42 @@ def _oku_ham():
         if not isinstance(veri, dict) or "gorevler" not in veri:
             veri = varsayilan_plan_olustur()
             _yaz_ham(veri)
+        elif _varsayilanlari_birlestir(veri):
+            _yaz_ham(veri)
         return veri
     except Exception:
         veri = varsayilan_plan_olustur()
         _yaz_ham(veri)
         return veri
+
+
+def _varsayilanlari_birlestir(veri):
+    """Kalıcı volume'daki eski takvime sonradan eklenen varsayılan görevleri (ör. yeni ajan) bir kez ekler.
+
+    Kullanıcının sildiği varsayılan görev geri gelmesin diye eklenen başlıklar ayarlar.tohumlanan'da tutulur.
+    Bu liste hiç yoksa (eski dosya) yalnız takvimde hiç görevi olmayan ajanların varsayılanları eklenir.
+    Değişiklik olduysa True döner.
+    """
+    ayarlar = veri.get("ayarlar")
+    if not isinstance(ayarlar, dict):
+        ayarlar = veri["ayarlar"] = {}
+    gorevler = veri.get("gorevler")
+    if not isinstance(gorevler, list):
+        return False
+    tohum = ayarlar.get("tohumlanan")
+    varsayilan = varsayilan_plan_olustur()["gorevler"]
+    mevcut = {(g.get("ajan"), g.get("baslik")) for g in gorevler if isinstance(g, dict)}
+    if isinstance(tohum, list):
+        tohum_k = set(tohum)
+        eklenecek = [g for g in varsayilan if g["baslik"] not in tohum_k and (g["ajan"], g["baslik"]) not in mevcut]
+    else:
+        ajanlar = {g.get("ajan") for g in gorevler if isinstance(g, dict)}
+        eklenecek = [g for g in varsayilan if g["ajan"] not in ajanlar]
+    gorevler.extend(eklenecek)
+    yeni_tohum = sorted({g["baslik"] for g in varsayilan} | set(tohum if isinstance(tohum, list) else []))
+    degisti = bool(eklenecek) or tohum != yeni_tohum
+    ayarlar["tohumlanan"] = yeni_tohum
+    return degisti
 
 
 def _yaz_ham(veri):
